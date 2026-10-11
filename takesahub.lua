@@ -1,7 +1,7 @@
 -- ==============================================================================
--- 🌸 [TAKESA HUB] : MOBILE OPTIMIZED EDITION (FULL ESP + ANTI-KNOCKBACK)
+-- 🌸 [TAKESA HUB] : MOBILE OPTIMIZED EDITION (FULL PACK + 5 PRO FEATURES)
 -- ==============================================================================
-local Plrs, CoreG, RunS, TweenS, Lighting, Camera = game:GetService("Players"), game:GetService("CoreGui"), game:GetService("RunService"), game:GetService("TweenService"), game:GetService("Lighting"), workspace.CurrentCamera
+local Plrs, CoreG, RunS, TweenS, Lighting, Camera, UserInputService, TeleportService, HttpService = game:GetService("Players"), game:GetService("CoreGui"), game:GetService("RunService"), game:GetService("TweenService"), game:GetService("Lighting"), workspace.CurrentCamera, game:GetService("UserInputService"), game:GetService("TeleportService"), game:GetService("HttpService")
 local LP = Plrs.LocalPlayer
 local UI_N = "TakesaHubMobileEdition"
 
@@ -68,7 +68,7 @@ mF.Name, mF.Size, mF.Position, mF.BackgroundColor3, mF.BorderSizePixel, mF.Visib
 cnr(mF, 16) addSoftShadow(mF)
 
 local mTitle = Instance.new("TextLabel", mF) 
-mTitle.Size, mTitle.BackgroundColor3, mTitle.TextColor3, mTitle.TextSize, mTitle.Font, mTitle.Text = UDim2.new(1, 0, 0, 45), Color3.fromRGB(235, 242, 255), Color3.fromRGB(60, 80, 120), 14, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE"
+mTitle.Size, mTitle.BackgroundColor3, mTitle.TextColor3, mTitle.TextSize, mTitle.Font, mTitle.Text = UDim2.new(1, 0, 0, 45), Color3.fromRGB(235, 242, 255), Color3.fromRGB(60, 80, 120), 14, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE PRO"
 mTitle.TextXAlignment = Enum.TextXAlignment.Left cnr(mTitle, 16)
 
 local cBtn = Instance.new("TextButton", mF)
@@ -110,7 +110,7 @@ local function mkTab(name, idx, totalTabs, contentHeight)
 
     local scr = Instance.new("ScrollingFrame", cH) 
     scr.Size, scr.Position, scr.BackgroundTransparency, scr.ScrollBarThickness = UDim2.new(1,0,1,0), UDim2.new(0,0,0,0), true, 6
-    scr.ScrollBarImageColor3, scr.CanvasSize, scr.Visible = Color3.fromRGB(90, 140, 255), UDim2.new(0, 0, 0, contentHeight or 1250), (idx == 1)
+    scr.ScrollBarImageColor3, scr.CanvasSize, scr.Visible = Color3.fromRGB(90, 140, 255), UDim2.new(0, 0, 0, contentHeight or 1500), (idx == 1)
     
     table.insert(tabs, btn) 
     table.insert(containers, scr)
@@ -128,17 +128,45 @@ local function mkTab(name, idx, totalTabs, contentHeight)
     return scr
 end
 
-local tb1 = mkTab("หน้าแรก", 1, 6, 250)
+local tb1 = mkTab("หน้าแรก", 1, 6, 350)
 local tb2 = mkTab("วาร์ป", 2, 6, 350)
 local tb3 = mkTab("ESP", 3, 6, 250)
-local tb4 = mkTab("ตัวละคร", 4, 6, 1300)
+local tb4 = mkTab("ตัวละคร", 4, 6, 1500)
 local tb5 = mkTab("เพลง", 5, 6, 4000)
 local tb6 = mkTab("ล็อคเป้า", 6, 6, 400)
 
--- Tab 1 Content
+-- Tab 1 Content (หน้าแรก + เพิ่มปุ่ม Server Hop & Rejoin)
 local wLbl = Instance.new("TextLabel", tb1) 
-wLbl.Size, wLbl.Position, wLbl.BackgroundColor3, wLbl.TextColor3, wLbl.TextSize, wLbl.Font, wLbl.Text = UDim2.new(1, 0, 0, 110), UDim2.new(0, 0, 0, 10), Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE EDITION\n  ✨ ใช้งานฟรีเต็มรูปแบบ\n  🚀 เลื่อนหน้าจอเพื่อดูเมนูเพิ่มเติมได้เลย!"
+wLbl.Size, wLbl.Position, wLbl.BackgroundColor3, wLbl.TextColor3, wLbl.TextSize, wLbl.Font, wLbl.Text = UDim2.new(1, 0, 0, 110), UDim2.new(0, 0, 0, 10), Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE PRO EDITION\n  ✨ รวมฟังก์ชันเสริมพิเศษ + เพลงเบสหนัก\n  🚀 เลื่อนหน้าจอเพื่อดูเมนูเพิ่มเติมได้เลย!"
 wLbl.TextXAlignment = Enum.TextXAlignment.Left cnr(wLbl, 10) addSoftShadow(wLbl)
+
+local rejoinBtn = Instance.new("TextButton", tb1)
+rejoinBtn.Size, rejoinBtn.Position = UDim2.new(1, 0, 0, 42), UDim2.new(0, 0, 0, 130)
+rejoinBtn.BackgroundColor3, rejoinBtn.TextColor3, rejoinBtn.TextSize, rejoinBtn.Font, rejoinBtn.Text = Color3.fromRGB(230, 238, 250), Color3.fromRGB(60, 80, 120), 12, Enum.Font.GothamBold, "🔄 เข้าเซิร์ฟเวอร์เดิมใหม่ (Rejoin)"
+cnr(rejoinBtn, 8) addSoftShadow(rejoinBtn)
+rejoinBtn.MouseButton1Click:Connect(function()
+    TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, LP)
+end)
+
+local hopBtn = Instance.new("TextButton", tb1)
+hopBtn.Size, hopBtn.Position = UDim2.new(1, 0, 0, 42), UDim2.new(0, 0, 0, 182)
+hopBtn.BackgroundColor3, hopBtn.TextColor3, hopBtn.TextSize, hopBtn.Font, hopBtn.Text = Color3.fromRGB(230, 238, 250), Color3.fromRGB(60, 80, 120), 12, Enum.Font.GothamBold, "🌐 ย้ายไปห้องอื่นอัตโนมัติ (Server Hop)"
+cnr(hopBtn, 8) addSoftShadow(hopBtn)
+hopBtn.MouseButton1Click:Connect(function()
+    hopBtn.Text = "⏳ กำลังค้นหาห้องใหม่..."
+    local api = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
+    local success, result = pcall(function() return HttpService:JSONDecode(game:HttpGet(api)) end)
+    if success and result and result.data then
+        for _, s in ipairs(result.data) do
+            if s.id ~= game.JobId and s.playing < s.maxPlayers then
+                TeleportService:TeleportToPlaceInstance(game.PlaceId, s.id, LP)
+                break
+            end
+        end
+    end
+    task.wait(2)
+    hopBtn.Text = "🌐 ย้ายไปห้องอื่นอัตโนมัติ (Server Hop)"
+end)
 
 -- Tab 2 Content (Warp)
 local tP, tLock = nil, false
@@ -240,41 +268,24 @@ espB.MouseButton1Click:Connect(function()
 end)
 
 Plrs.PlayerAdded:Connect(function(p)
-    p.CharacterAdded:Connect(function()
-        if espAct then
-            task.wait(0.5)
-            applyESP(p)
-        end
-    end)
+    p.CharacterAdded:Connect(function() if espAct then task.wait(0.5) applyESP(p) end end)
 end)
-
-Plrs.PlayerRemoving:Connect(function(p)
-    removeESP(p)
-end)
+Plrs.PlayerRemoving:Connect(function(p) removeESP(p) end)
 
 for _, p in pairs(Plrs:GetPlayers()) do
-    p.CharacterAdded:Connect(function()
-        if espAct then
-            task.wait(0.5)
-            applyESP(p)
-        end
-    end)
+    p.CharacterAdded:Connect(function() if espAct then task.wait(0.5) applyESP(p) end end)
 end
 
 RunS.RenderStepped:Connect(function()
-    if espAct then
-        for _, p in pairs(Plrs:GetPlayers()) do
-            if p ~= LP then
-                applyESP(p)
-            end
-        end
-    end
+    if espAct then for _, p in pairs(Plrs:GetPlayers()) do if p ~= LP then applyESP(p) end end end
 end)
 
--- Tab 4 Content (Character + Anti-Knockback + Underground + Drone)
+-- Tab 4 Content (Character + Anti-Knockback + 5 Pro Modules)
 local noclip, spdJump, antiV, infZoom, flyAct, boostFPSAct, antiKBAct = false, false, false, false, false, false, false
+local desyncAct, infJumpAct, airWalkAct, curveAct = false, false, false, false
 local flySpeed = 50
 local bgConnection
+local airWalkPlatform = nil
 
 local function addT(pos, txt, cb)
     local b = Instance.new("TextButton", tb4) 
@@ -290,8 +301,9 @@ addT(10, "🚀 เปิด/ปิด Boost FPS (ลดแลค): [ ปิด�
     b.Text = "🚀 เปิด/ปิด Boost FPS: " .. (boostFPSAct and "[ เปิด ]" or "[ ปิดอยู่ ]")
     pcall(function()
         Lighting.GlobalShadows = not boostFPSAct
+        if setfpscap then setfpscap(boostFPSAct and 240 or 60) end
         for _, v in pairs(game:GetDescendants()) do
-            if boostFPSAct and v:IsA("BasePart") then v.Material = Enum.Material.SmoothPlastic end
+            if boostFPSAct and v:IsA("BasePart") then v.CastShadow = false end
         end
     end)
 end)
@@ -311,7 +323,6 @@ RunS.Stepped:Connect(function()
     end
 end)
 
--- 🛡️ เพิ่มระบบกันปลิว (Anti-Knockback) ตรงนี้
 addT(94, "🛡️ เปิด/ปิด กันปลิว (Anti-Knockback): [ ปิดอยู่ ]", function(b)
     antiKBAct = not antiKBAct
     b.BackgroundColor3 = antiKBAct and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
@@ -323,7 +334,6 @@ RunS.RenderStepped:Connect(function()
     if antiKBAct and LP.Character then
         local hrp = LP.Character:FindFirstChild("HumanoidRootPart")
         if hrp then
-            -- ถ้าความเร็วแกน X หรือ Z สูงเกินไป (โดนซัดกระเด็น) ให้ลดความเร็วกระแทกลงไม่ให้ปลิว
             local vel = hrp.AssemblyLinearVelocity
             if math.abs(vel.X) > 40 or math.abs(vel.Z) > 40 then
                 hrp.AssemblyLinearVelocity = Vector3.new(0, vel.Y, 0)
@@ -332,38 +342,90 @@ RunS.RenderStepped:Connect(function()
     end
 end)
 
+-- 👻 1. Desync / Ghost Motion (ร่างเงาอำพรางตำแหน่ง)
+addT(136, "👻 เปิด/ปิด ร่างเงาอำพราง (Desync): [ ปิดอยู่ ]", function(b)
+    desyncAct = not desyncAct
+    b.BackgroundColor3 = desyncAct and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
+    b.TextColor3 = desyncAct and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
+    b.Text = "👻 เปิด/ปิด ร่างเงาอำพราง (Desync): " .. (desyncAct and "[ เปิด ]" or "[ ปิดอยู่ ]")
+end)
+
+RunS.Heartbeat:Connect(function()
+    if desyncAct and LP.Character and LP.Character:FindFirstChild("HumanoidRootPart") then
+        local hrp = LP.Character.HumanoidRootPart
+        local oldCF = hrp.CFrame
+        hrp.CFrame = hrp.CFrame * CFrame.new(math.random(-4, 4), 0, math.random(-4, 4))
+        RunS.RenderStepped:Wait()
+        hrp.CFrame = oldCF
+    end
+end)
+
+-- 🦘 2. Infinite Jump (กระโดดไม่จำกัดบนอากาศ)
+addT(178, "🦘 เปิด/ปิด กระโดดไม่จำกัด (Infinite Jump): [ ปิดอยู่ ]", function(b)
+    infJumpAct = not infJumpAct
+    b.BackgroundColor3 = infJumpAct and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
+    b.TextColor3 = infJumpAct and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
+    b.Text = "🦘 เปิด/ปิด กระโดดไม่จำกัด: " .. (infJumpAct and "[ เปิด ]" or "[ ปิดอยู่ ]")
+end)
+
+UserInputService.JumpRequest:Connect(function()
+    if infJumpAct and LP.Character and LP.Character:FindFirstChildOfClass("Humanoid") then
+        LP.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Jumping)
+    end
+end)
+
+-- ☁️ 3. Air Walk (เดินบนอากาศ)
+addT(220, "☁️ เปิด/ปิด เดินบนอากาศ (Air Walk): [ ปิดอยู่ ]", function(b)
+    airWalkAct = not airWalkAct
+    b.BackgroundColor3 = airWalkAct and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
+    b.TextColor3 = airWalkAct and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
+    b.Text = "☁️ เปิด/ปิด เดินบนอากาศ: " .. (airWalkAct and "[ เปิด ]" or "[ ปิดอยู่ ]")
+end)
+
+RunS.RenderStepped:Connect(function()
+    if airWalkAct and LP.Character and LP.Character:FindFirstChild("HumanoidRootPart") then
+        local hrp = LP.Character.HumanoidRootPart
+        if not airWalkPlatform or not airWalkPlatform.Parent then
+            airWalkPlatform = Instance.new("Part", workspace)
+            airWalkPlatform.Size = Vector3.new(5, 1, 5)
+            airWalkPlatform.Anchored = true
+            airWalkPlatform.Transparency = 0.8
+            airWalkPlatform.Color = Color3.fromRGB(90, 140, 255)
+        end
+        airWalkPlatform.CFrame = CFrame.new(hrp.Position.X, hrp.Position.Y - 3.5, hrp.Position.Z)
+    else
+        if airWalkPlatform then airWalkPlatform:Destroy() airWalkPlatform = nil end
+    end
+end)
+
 local ugDepthBox = Instance.new("TextBox", tb4)
-ugDepthBox.Size, ugDepthBox.Position = UDim2.new(1, 0, 0, 32), UDim2.new(0, 0, 0, 136)
+ugDepthBox.Size, ugDepthBox.Position = UDim2.new(1, 0, 0, 32), UDim2.new(0, 0, 0, 262)
 ugDepthBox.BackgroundColor3, ugDepthBox.TextColor3, ugDepthBox.PlaceholderText, ugDepthBox.Text, ugDepthBox.TextSize, ugDepthBox.Font = Color3.fromRGB(245, 247, 252), Color3.fromRGB(50, 110, 210), "ความลึกมุดดิน (ค่าเริ่มต้น: 15)", "15", 11, Enum.Font.GothamBold
 cnr(ugDepthBox, 6) addSoftShadow(ugDepthBox)
 
-addT(174, "🕳️ เปิด/ปิด มุดดิน (Underground): [ ปิดอยู่ ]", function(b)
+addT(300, "🕳️ เปิด/ปิด มุดดิน (Underground): [ ปิดอยู่ ]", function(b)
     safeZ = not safeZ
     b.BackgroundColor3 = safeZ and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
     b.TextColor3 = safeZ and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
     b.Text = "🕳 เปิด/ปิด มุดดิน: " .. (safeZ and "[ เปิด ]" or "[ ปิดอยู่ ]")
-    
     local hrp = LP.Character and LP.Character:FindFirstChild("HumanoidRootPart")
-    if safeZ then
-        if hrp then
-            local depthVal = tonumber(ugDepthBox.Text) or 15
-            fixedSafeY = hrp.Position.Y - depthVal
-            ugPlat = Instance.new("Part", workspace)
-            ugPlat.Name = "TakesaUndergroundPlatform"
-            ugPlat.Size = Vector3.new(20, 1, 20)
-            ugPlat.Anchored = true
-            ugPlat.CanCollide = true
-            ugPlat.Transparency = 0.5
-            ugPlat.BrickColor = BrickColor.new("Really black")
-            ugPlat.CFrame = CFrame.new(hrp.Position.X, fixedSafeY, hrp.Position.Z)
-            hrp.CFrame = ugPlat.CFrame + Vector3.new(0, 4, 0)
-        end
+    if safeZ and hrp then
+        local depthVal = tonumber(ugDepthBox.Text) or 15
+        fixedSafeY = hrp.Position.Y - depthVal
+        ugPlat = Instance.new("Part", workspace)
+        ugPlat.Name = "TakesaUndergroundPlatform"
+        ugPlat.Size = Vector3.new(20, 1, 20)
+        ugPlat.Anchored = true
+        ugPlat.Transparency = 0.5
+        ugPlat.BrickColor = BrickColor.new("Really black")
+        ugPlat.CFrame = CFrame.new(hrp.Position.X, fixedSafeY, hrp.Position.Z)
+        hrp.CFrame = ugPlat.CFrame + Vector3.new(0, 4, 0)
     else
         forceDisableUnderground()
     end
 end)
 
-addT(216, "🛡️ เปิด/ปิด กันตกโลก (Anti-Void): [ ปิดอยู่ ]", function(b)
+addT(342, "🛡️ เปิด/ปิด กันตกโลก (Anti-Void): [ ปิดอยู่ ]", function(b)
     antiV = not antiV
     b.BackgroundColor3 = antiV and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
     b.TextColor3 = antiV and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
@@ -380,7 +442,7 @@ RunS.Stepped:Connect(function()
     end
 end)
 
-addT(258, "🔍 เปิด/ปิด ซูมหน้าจอไกลสุดๆ: [ ปิดอยู่ ]", function(b)
+addT(384, "🔍 เปิด/ปิด ซูมหน้าจอไกลสุดๆ: [ ปิดอยู่ ]", function(b)
     infZoom = not infZoom
     b.BackgroundColor3 = infZoom and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
     b.TextColor3 = infZoom and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
@@ -388,13 +450,8 @@ addT(258, "🔍 เปิด/ปิด ซูมหน้าจอไกลส�
 end)
 
 RunS.RenderStepped:Connect(function()
-    if infZoom then
-        pcall(function() LP.CameraMaxZoomDistance = 999999 end)
-    else
-        pcall(function()
-            if LP.CameraMaxZoomDistance == 999999 then LP.CameraMaxZoomDistance = 400 end
-        end)
-    end
+    if infZoom then pcall(function() LP.CameraMaxZoomDistance = 999999 end)
+    else pcall(function() if LP.CameraMaxZoomDistance == 999999 then LP.CameraMaxZoomDistance = 400 end end) end
 end)
 
 local flyCtrlGui = Instance.new("ScreenGui", gui)
@@ -417,7 +474,7 @@ cnr(btnDown, 22) addSoftShadow(btnDown)
 btnDown.MouseButton1Down:Connect(function() flyDownState = true end)
 btnDown.MouseButton1Up:Connect(function() flyDownState = false end)
 
-addT(300, "✈ เปิด/ปิด ระบบบิน (Fly): [ ปิดอยู่ ]", function(b)
+addT(426, "✈ เปิด/ปิด ระบบบิน (Fly): [ ปิดอยู่ ]", function(b)
     flyAct = not flyAct
     b.BackgroundColor3 = flyAct and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
     b.TextColor3 = flyAct and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
@@ -426,24 +483,22 @@ addT(300, "✈ เปิด/ปิด ระบบบิน (Fly): [ ปิด�
     local char = LP.Character
     if not char then return end
     local hrp, hum = char:FindFirstChild("HumanoidRootPart"), char:FindFirstChildOfClass("Humanoid")
-    if flyAct then
-        if hrp and hum then
-            hum.PlatformStand = true
-            local bg = Instance.new("BodyGyro", hrp) bg.P = 9e4 bg.maxTorque = Vector3.new(9e4, 9e4, 9e4)
-            local bv = Instance.new("BodyVelocity", hrp) bv.velocity = Vector3.new(0,0,0) bv.maxForce = Vector3.new(9e4, 9e4, 9e4)
-            bgConnection = RunS.RenderStepped:Connect(function()
-                if not flyAct then return end
-                local cam = workspace.CurrentCamera
-                bg.cframe = cam.CFrame
-                local moveDir = Vector3.new(0,0,0)
-                local uS = game:GetService("UserInputService")
-                if uS:IsKeyDown(Enum.KeyCode.W) then moveDir = moveDir + cam.CFrame.LookVector end
-                if uS:IsKeyDown(Enum.KeyCode.S) then moveDir = moveDir - cam.CFrame.LookVector end
-                if flyUpState then moveDir = moveDir + Vector3.new(0,1,0) end
-                if flyDownState then moveDir = moveDir - Vector3.new(0,1,0) end
-                bv.velocity = moveDir * flySpeed
-            end)
-        end
+    if flyAct and hrp and hum then
+        hum.PlatformStand = true
+        local bg = Instance.new("BodyGyro", hrp) bg.P = 9e4 bg.maxTorque = Vector3.new(9e4, 9e4, 9e4)
+        local bv = Instance.new("BodyVelocity", hrp) bv.velocity = Vector3.new(0,0,0) bv.maxForce = Vector3.new(9e4, 9e4, 9e4)
+        bgConnection = RunS.RenderStepped:Connect(function()
+            if not flyAct then return end
+            local cam = workspace.CurrentCamera
+            bg.cframe = cam.CFrame
+            local moveDir = Vector3.new(0,0,0)
+            local uS = game:GetService("UserInputService")
+            if uS:IsKeyDown(Enum.KeyCode.W) then moveDir = moveDir + cam.CFrame.LookVector end
+            if uS:IsKeyDown(Enum.KeyCode.S) then moveDir = moveDir - cam.CFrame.LookVector end
+            if flyUpState then moveDir = moveDir + Vector3.new(0,1,0) end
+            if flyDownState then moveDir = moveDir - Vector3.new(0,1,0) end
+            bv.velocity = moveDir * flySpeed
+        end)
     else
         flyUpState, flyDownState = false, false
         if hum then hum.PlatformStand = false end
@@ -452,10 +507,10 @@ addT(300, "✈ เปิด/ปิด ระบบบิน (Fly): [ ปิด�
     end
 end)
 
-local sBx = Instance.new("TextBox", tb4) sBx.Size, sBx.Position, sBx.BackgroundColor3, sBx.TextColor3, sBx.PlaceholderText, sBx.Text, sBx.TextSize, sBx.Font = UDim2.new(0.48,0,0,34), UDim2.new(0,0,0,342), Color3.fromRGB(245,247,252), Color3.fromRGB(50,110,210), "ความเร็ว", "60", 11, Enum.Font.GothamBold cnr(sBx, 6) addSoftShadow(sBx)
-local jBx = Instance.new("TextBox", tb4) jBx.Size, jBx.Position, jBx.BackgroundColor3, jBx.TextColor3, jBx.PlaceholderText, jBx.Text, jBx.TextSize, jBx.Font = UDim2.new(0.48,0,0,34), UDim2.new(0.52,0,0,342), Color3.fromRGB(245,247,252), Color3.fromRGB(50,110,210), "กระโดด", "120", 11, Enum.Font.GothamBold cnr(jBx, 6) addSoftShadow(jBx)
+local sBx = Instance.new("TextBox", tb4) sBx.Size, sBx.Position, sBx.BackgroundColor3, sBx.TextColor3, sBx.PlaceholderText, sBx.Text, sBx.TextSize, sBx.Font = UDim2.new(0.48,0,0,34), UDim2.new(0,0,0,468), Color3.fromRGB(245,247,252), Color3.fromRGB(50,110,210), "ความเร็ว", "60", 11, Enum.Font.GothamBold cnr(sBx, 6) addSoftShadow(sBx)
+local jBx = Instance.new("TextBox", tb4) jBx.Size, jBx.Position, jBx.BackgroundColor3, jBx.TextColor3, jBx.PlaceholderText, jBx.Text, jBx.TextSize, jBx.Font = UDim2.new(0.48,0,0,34), UDim2.new(0.52,0,0,468), Color3.fromRGB(245,247,252), Color3.fromRGB(50,110,210), "กระโดด", "120", 11, Enum.Font.GothamBold cnr(jBx, 6) addSoftShadow(jBx)
 
-addT(384, "⚡ เปิด/ปิด ล็อคความเร็ว & กระโดด: [ ปิดอยู่ ]", function(b)
+addT(510, "⚡ เปิด/ปิด ล็อคความเร็ว & กระโดด: [ ปิดอยู่ ]", function(b)
     spdJump = not spdJump 
     b.BackgroundColor3 = spdJump and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
     b.TextColor3 = spdJump and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
@@ -472,144 +527,14 @@ RunS.RenderStepped:Connect(function()
     end
 end)
 
-addT(426, "💀 รีเซ็ตตัวละคร (Force Reset)", function(b)
+addT(552, "💀 รีเซ็ตตัวละคร (Force Reset)", function(b)
     pcall(function()
         local hum = LP.Character and LP.Character:FindFirstChildOfClass("Humanoid")
         if hum then hum.Health = 0 end
     end)
 end)
 
-local droneSpeedBox = Instance.new("TextBox", tb4)
-droneSpeedBox.Size, droneSpeedBox.Position = UDim2.new(1, 0, 0, 34), UDim2.new(0, 0, 0, 470)
-droneSpeedBox.BackgroundColor3, droneSpeedBox.TextColor3, droneSpeedBox.PlaceholderText, droneSpeedBox.Text, droneSpeedBox.TextSize, droneSpeedBox.Font = Color3.fromRGB(245, 247, 252), Color3.fromRGB(50, 110, 210), "ความเร็วโดรน (ค่าเริ่มต้น: 60)", "60", 11, Enum.Font.GothamBold
-cnr(droneSpeedBox, 6) addSoftShadow(droneSpeedBox)
-
-local droneActive = false
-local dronePart = nil
-local droneConn = nil
-
-local droneGui = Instance.new("ScreenGui", gui)
-droneGui.Name = "TakesaDroneControls"
-droneGui.Enabled = false
-droneGui.ResetOnSpawn = false
-
-local exitDroneBtn = Instance.new("TextButton", droneGui)
-exitDroneBtn.Size, exitDroneBtn.Position = UDim2.new(0, 140, 0, 40), UDim2.new(0.5, -70, 0, 15)
-exitDroneBtn.BackgroundColor3, exitDroneBtn.TextColor3, exitDroneBtn.TextSize, exitDroneBtn.Font, exitDroneBtn.Text = Color3.fromRGB(240, 100, 100), Color3.fromRGB(255, 255, 255), 12, Enum.Font.GothamBold, "❌ ออกจากโดรน"
-cnr(exitDroneBtn, 8) addSoftShadow(exitDroneBtn)
-
-local dUp = Instance.new("TextButton", droneGui)
-dUp.Size, dUp.Position = UDim2.new(0, 45, 0, 45), UDim2.new(1, -60, 0.5, -55)
-dUp.BackgroundColor3, dUp.TextColor3, dUp.TextSize, dUp.Font, dUp.Text = Color3.fromRGB(90, 140, 255), Color3.fromRGB(255, 255, 255), 18, Enum.Font.GothamBold, "⬆"
-cnr(dUp, 22) addSoftShadow(dUp)
-
-local dDown = Instance.new("TextButton", droneGui)
-dDown.Size, dDown.Position = UDim2.new(0, 45, 0, 45), UDim2.new(1, -60, 0.5, 5)
-dDown.BackgroundColor3, dDown.TextColor3, dDown.TextSize, dDown.Font, dDown.Text = Color3.fromRGB(90, 140, 255), Color3.fromRGB(255, 255, 255), 18, Enum.Font.GothamBold, "⬇"
-cnr(dDown, 22) addSoftShadow(dDown)
-
-local dForward = Instance.new("TextButton", droneGui)
-dForward.Size, dForward.Position = UDim2.new(0, 45, 0, 45), UDim2.new(0, 20, 0.5, -55)
-dForward.BackgroundColor3, dForward.TextColor3, dForward.TextSize, dForward.Font, dForward.Text = Color3.fromRGB(90, 140, 255), Color3.fromRGB(255, 255, 255), 14, Enum.Font.GothamBold, "W"
-cnr(dForward, 22) addSoftShadow(dForward)
-
-local dBackward = Instance.new("TextButton", droneGui)
-dBackward.Size, dBackward.Position = UDim2.new(0, 45, 0, 45), UDim2.new(0, 20, 0.5, 5)
-dBackward.BackgroundColor3, dBackward.TextColor3, dBackward.TextSize, dBackward.Font, dBackward.Text = Color3.fromRGB(90, 140, 255), Color3.fromRGB(255, 255, 255), 14, Enum.Font.GothamBold, "S"
-cnr(dBackward, 22) addSoftShadow(dBackward)
-
-local dLeft = Instance.new("TextButton", droneGui)
-dLeft.Size, dLeft.Position = UDim2.new(0, 40, 0, 40), UDim2.new(0, 70, 0.5, -25)
-dLeft.BackgroundColor3, dLeft.TextColor3, dLeft.TextSize, dLeft.Font, dLeft.Text = Color3.fromRGB(90, 140, 255), Color3.fromRGB(255, 255, 255), 14, Enum.Font.GothamBold, "A"
-cnr(dLeft, 20) addSoftShadow(dLeft)
-
-local dRight = Instance.new("TextButton", droneGui)
-dRight.Size, dRight.Position = UDim2.new(0, 40, 0, 40), UDim2.new(0, 120, 0.5, -25)
-dRight.BackgroundColor3, dRight.TextColor3, dRight.TextSize, dRight.Font, dRight.Text = Color3.fromRGB(90, 140, 255), Color3.fromRGB(255, 255, 255), 14, Enum.Font.GothamBold, "D"
-cnr(dRight, 20) addSoftShadow(dRight)
-
-local dUpState, dDownState, dFwdState, dBwdState, dLeftState, dRightState = false, false, false, false, false, false
-
-dUp.MouseButton1Down:Connect(function() dUpState = true end)
-dUp.MouseButton1Up:Connect(function() dUpState = false end)
-dDown.MouseButton1Down:Connect(function() dDownState = true end)
-dDown.MouseButton1Up:Connect(function() dDownState = false end)
-
-dForward.MouseButton1Down:Connect(function() dFwdState = true end)
-dForward.MouseButton1Up:Connect(function() dFwdState = false end)
-dBackward.MouseButton1Down:Connect(function() dBwdState = true end)
-dBackward.MouseButton1Up:Connect(function() dBwdState = false end)
-
-dLeft.MouseButton1Down:Connect(function() dLeftState = true end)
-dLeft.MouseButton1Up:Connect(function() dLeftState = false end)
-dRight.MouseButton1Down:Connect(function() dRightState = true end)
-dRight.MouseButton1Up:Connect(function() dRightState = false end)
-
-addT(512, "🛸 เปิด/ปิด โหมดโดรนสำรวจ: [ ปิดอยู่ ]", function(b)
-    droneActive = not droneActive
-    b.BackgroundColor3 = droneActive and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
-    b.TextColor3 = droneActive and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
-    b.Text = "🛸 เปิด/ปิด โหมดโดรนสำรวจ: " .. (droneActive and "[ เปิดใช้งาน ]" or "[ ปิดอยู่ ]")
-    droneGui.Enabled = droneActive
-    
-    local char = LP.Character
-    if not char then return end
-    local hrp = char:FindFirstChild("HumanoidRootPart")
-    
-    if droneActive then
-        if hrp then
-            dronePart = Instance.new("Part", workspace)
-            dronePart.Name = "TakesaDroneCameraPart"
-            dronePart.Size = Vector3.new(1, 1, 1)
-            dronePart.Transparency = 1
-            dronePart.Anchored = true
-            dronePart.CanCollide = false
-            dronePart.CFrame = hrp.CFrame + Vector3.new(0, 5, 0)
-            
-            Camera.CameraSubject = dronePart
-            
-            droneConn = RunS.RenderStepped:Connect(function()
-                if not droneActive or not dronePart then return end
-                local cam = workspace.CurrentCamera
-                local moveDir = Vector3.new(0, 0, 0)
-                local uS = game:GetService("UserInputService")
-                
-                if dFwdState or uS:IsKeyDown(Enum.KeyCode.W) then moveDir = moveDir + cam.CFrame.LookVector end
-                if dBwdState or uS:IsKeyDown(Enum.KeyCode.S) then moveDir = moveDir - cam.CFrame.LookVector end
-                if dLeftState or uS:IsKeyDown(Enum.KeyCode.A) then moveDir = moveDir - cam.CFrame.RightVector end
-                if dRightState or uS:IsKeyDown(Enum.KeyCode.D) then moveDir = moveDir + cam.CFrame.RightVector end
-                if dUpState then moveDir = moveDir + Vector3.new(0, 1, 0) end
-                if dDownState then moveDir = moveDir - Vector3.new(0, 1, 0) end
-                
-                local currentDroneSpeed = tonumber(droneSpeedBox.Text) or 60
-                dronePart.CFrame = dronePart.CFrame + (moveDir * (currentDroneSpeed / 50))
-            end)
-        end
-    else
-        dUpState, dDownState, dFwdState, dBwdState, dLeftState, dRightState = false, false, false, false, false, false
-        if droneConn then droneConn:Disconnect() end
-        if dronePart then dronePart:Destroy() dronePart = nil end
-        if char and char:FindFirstChildOfClass("Humanoid") then
-            Camera.CameraSubject = char:FindFirstChildOfClass("Humanoid")
-        end
-    end
-end)
-
-exitDroneBtn.MouseButton1Click:Connect(function()
-    if droneActive then
-        droneActive = false
-        droneGui.Enabled = false
-        dUpState, dDownState, dFwdState, dBwdState, dLeftState, dRightState = false, false, false, false, false, false
-        if droneConn then droneConn:Disconnect() end
-        if dronePart then dronePart:Destroy() dronePart = nil end
-        local char = LP.Character
-        if char and char:FindFirstChildOfClass("Humanoid") then
-            Camera.CameraSubject = char:FindFirstChildOfClass("Humanoid")
-        end
-    end
-end)
-
--- Tab 5 Content (Music Player)
+-- Tab 5 Content (Music Player + เพิ่มเพลง เบสหนัก ไว้บนสุด)
 local musicLabel = Instance.new("TextLabel", tb5)
 musicLabel.Size, musicLabel.Position, musicLabel.BackgroundTransparency = UDim2.new(1, 0, 0, 20), UDim2.new(0, 0, 0, 0), true
 musicLabel.TextColor3, musicLabel.TextSize, musicLabel.Font = Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold
@@ -636,6 +561,7 @@ songScroll.Size, songScroll.Position, songScroll.BackgroundTransparency, songScr
 songScroll.ScrollBarImageColor3 = Color3.fromRGB(90, 140, 255)
 
 local musicList = {
+    {name = "เบสหนัก 🔊", id = "72695526421040"},
     {name = "ทนแดนซ์", id = "81533059856274"},
     {name = "แดนซ์มันๆ", id = "108937679300559"},
     {name = "แดนซ์มันๆ 2", id = "99905891709896"},
@@ -843,9 +769,7 @@ for i, song in ipairs(musicList) do
     songBtn.TextXAlignment = Enum.TextXAlignment.Left
     cnr(songBtn, 6)
     
-    songBtn.MouseButton1Click:Connect(function()
-        musicBox.Text = song.id
-    end)
+    songBtn.MouseButton1Click:Connect(function() musicBox.Text = song.id end)
 end
 
 playMusicBtn.MouseButton1Click:Connect(function()
@@ -940,11 +864,9 @@ RunS.RenderStepped:Connect(function()
                 lockInfoLbl.Text = "  🎯 เป้าหมายที่กำลังล็อก: [ เป้าหมายเสียชีวิตแล้ว ]"
                 return
             end
-            if tHead then
-                Camera.CFrame = CFrame.new(Camera.CFrame.Position, tHead.Position)
-            end
+            if tHead then Camera.CFrame = CFrame.new(Camera.CFrame.Position, tHead.Position) end
         end)
     end
 end)
 
-print("🌸 TAKESA HUB // MOBILE EDITION FULL LOADED WITH ANTI-KNOCKBACK!")
+print("🌸 TAKESA HUB // MOBILE PRO EDITION FULLY LOADED!")
