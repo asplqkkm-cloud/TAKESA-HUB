@@ -1,5 +1,5 @@
 -- ==============================================================================
--- 🌸 [TAKESA HUB] : MOBILE PRO EDITION (FIXED REJOIN BUTTON)
+-- 🌸 [TAKESA HUB] : MOBILE PRO EDITION (ADDED "RIVALS" SCRIPT TO TAB 8)
 -- ==============================================================================
 local Plrs, CoreG, RunS, TweenS, Lighting, Camera, UserInputService, TeleportService, HttpService = game:GetService("Players"), game:GetService("CoreGui"), game:GetService("RunService"), game:GetService("TweenService"), game:GetService("Lighting"), workspace.CurrentCamera, game:GetService("UserInputService"), game:GetService("TeleportService"), game:GetService("HttpService")
 local LP = Plrs.LocalPlayer
@@ -93,7 +93,7 @@ tBtn.MouseButton1Click:Connect(function()
 end)
 
 local tH = Instance.new("ScrollingFrame", mF)
-tH.Size, tH.Position, tH.BackgroundTransparency, tH.CanvasSize, tH.ScrollBarThickness = UDim2.new(1, -10, 0, 40), UDim2.new(0, 5, 0, 50), true, UDim2.new(0, 525, 0, 0), 0
+tH.Size, tH.Position, tH.BackgroundTransparency, tH.CanvasSize, tH.ScrollBarThickness = UDim2.new(1, -10, 0, 40), UDim2.new(0, 5, 0, 50), true, UDim2.new(0, 600, 0, 0), 0
 
 local cH = Instance.new("Frame", mF) 
 cH.Size, cH.Position, cH.BackgroundTransparency = UDim2.new(1, -16, 1, -100), UDim2.new(0, 8, 0, 95), true
@@ -128,17 +128,18 @@ local function mkTab(name, idx, totalTabs, contentHeight)
     return scr
 end
 
-local tb1 = mkTab("หน้าแรก", 1, 7, 350)
-local tb2 = mkTab("วาร์ป", 2, 7, 350)
-local tb3 = mkTab("ESP", 3, 7, 250)
-local tb4 = mkTab("ตัวละคร", 4, 7, 2000)
-local tb5 = mkTab("เพลง", 5, 7, 4000)
-local tb6 = mkTab("ล็อคเป้า", 6, 7, 400)
-local tb7 = mkTab("ช่วยเหลือ", 7, 7, 500)
+local tb1 = mkTab("หน้าแรก", 1, 8, 350)
+local tb2 = mkTab("วาร์ป", 2, 8, 350)
+local tb3 = mkTab("ESP", 3, 8, 250)
+local tb4 = mkTab("ตัวละคร", 4, 8, 2000)
+local tb5 = mkTab("เพลง", 5, 8, 4200)
+local tb6 = mkTab("ล็อคเป้า", 6, 8, 400)
+local tb7 = mkTab("ช่วยเหลือ", 7, 8, 500)
+local tb8 = mkTab("แมพต่างๆ", 8, 8, 800)
 
 -- Tab 1 Content (หน้าแรก)
 local wLbl = Instance.new("TextLabel", tb1) 
-wLbl.Size, wLbl.Position, wLbl.BackgroundColor3, wLbl.TextColor3, wLbl.TextSize, wLbl.Font, wLbl.Text = UDim2.new(1, 0, 0, 90), UDim2.new(0, 0, 0, 10), Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE PRO EDITION\n  ✨ แก้ไขปุ่ม Rejoin ให้กลับเซิร์ฟเวอร์เดิมสมบูรณ์แบบ!\n  🚀 เลื่อนหน้าจอเพื่อดูเมนูเพิ่มเติมได้เลย!"
+wLbl.Size, wLbl.Position, wLbl.BackgroundColor3, wLbl.TextColor3, wLbl.TextSize, wLbl.Font, wLbl.Text = UDim2.new(1, 0, 0, 90), UDim2.new(0, 0, 0, 10), Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE PRO EDITION\n  ✨ เพิ่มสคริปต์แมพ Rivals ใน Tab 8 แล้ว!\n  🚀 เลื่อนหน้าจอเพื่อดูเมนูเพิ่มเติมได้เลย!"
 wLbl.TextXAlignment = Enum.TextXAlignment.Left cnr(wLbl, 10) addSoftShadow(wLbl)
 
 local tiktokBtn = Instance.new("TextButton", tb1)
@@ -712,6 +713,11 @@ songScroll.Size, songScroll.Position, songScroll.BackgroundTransparency, songScr
 songScroll.ScrollBarImageColor3 = Color3.fromRGB(90, 140, 255)
 
 local musicList = {
+    {name = "สายเบียว 🌸✨", id = "139197283079137"},
+    {name = "สายเบียว 2 🌸✨", id = "137486973114353"},
+    {name = "สายเบียว 3 🌸✨", id = "123511627553696"},
+    {name = "สายเบียว 4 🌸✨", id = "119322956539829"},
+    {name = "สายเบียว 5 🌸✨", id = "76650356472656"},
     {name = "เพลงใหม่ 1 🎵", id = "115189039255362"},
     {name = "เพลงใหม่ 3 🎵", id = "74697049223758"},
     {name = "เพลงใหม่ 4 🎵", id = "110919391228823"},
@@ -1108,4 +1114,58 @@ antiAfkBtn.MouseButton1Click:Connect(function()
     antiAfkBtn.Text = "💤 เปิด/ปิด กันถูกเตะออกเกม: " .. (antiAfkActive and "[ เปิดใช้งาน ]" or "[ ปิดอยู่ ]")
 end)
 
-print("🌸 TAKESA HUB // MOBILE PRO EDITION FULLY LOADED & FIXED!")
+-- Tab 8 Content (🗺️ ระบบสคริปต์แมพต่างๆ - เลือกแมพเพื่อรันสคริปต์เฉพาะ)
+local mapSelectFrame = Instance.new("Frame", tb8)
+mapSelectFrame.Size, mapSelectFrame.Position, mapSelectFrame.BackgroundTransparency = UDim2.new(1, 0, 1, 0), UDim2.new(0, 0, 0, 0), true
+
+local mapList = {
+    {
+        name = "Military Army Tycoon 🪖", 
+        script = function()
+            loadstring(game:HttpGet("https://gist.githubusercontent.com/asplqkkm-cloud/7de1a9a4f30164f0674da99cd7e480f7/raw/d3092620ed810cfc51faf686195a525ae21855a2/gistfile1.txt"))()
+        end
+    },
+    {
+        name = "Rivals 🎯", 
+        script = function()
+            loadstring(game:HttpGet("https://pastebin.com/raw/vWDcERZy"))()
+        end
+    },
+    {
+        name = "แมพอื่นๆ (รอเพิ่มสคริปต์)", 
+        script = nil
+    }
+}
+
+for i, mapData in ipairs(mapList) do
+    local mapBtn = Instance.new("TextButton", mapSelectFrame)
+    mapBtn.Size, mapBtn.Position = UDim2.new(1, 0, 0, 42), UDim2.new(0, 0, 0, (i - 1) * 50 + 10)
+    mapBtn.BackgroundColor3, mapBtn.TextColor3, mapBtn.TextSize, mapBtn.Font, mapBtn.Text = Color3.fromRGB(230, 238, 250), Color3.fromRGB(60, 80, 120), 12, Enum.Font.GothamBold, "  🗺️ " .. mapData.name
+    mapBtn.TextXAlignment = Enum.TextXAlignment.Left
+    cnr(mapBtn, 8) addSoftShadow(mapBtn)
+    
+    mapBtn.MouseButton1Click:Connect(function()
+        if mapData.script then
+            mapBtn.Text = "⏳ กำลังรันสคริปต์ " .. mapData.name .. "..."
+            mapBtn.BackgroundColor3 = Color3.fromRGB(90, 140, 255)
+            mapBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+            
+            pcall(mapData.script)
+            
+            task.wait(1.5)
+            mapBtn.Text = "✅ รันสคริปต์สำเร็จ! (" .. mapData.name .. ")"
+            mapBtn.BackgroundColor3 = Color3.fromRGB(80, 200, 120)
+            
+            task.wait(2)
+            mapBtn.Text = "  🗺️ " .. mapData.name
+            mapBtn.BackgroundColor3 = Color3.fromRGB(230, 238, 250)
+            mapBtn.TextColor3 = Color3.fromRGB(60, 80, 120)
+        else
+            mapBtn.Text = "⚠️ ยังไม่มีสคริปต์ในแมพนี้"
+            task.wait(1.5)
+            mapBtn.Text = "  🗺️ " .. mapData.name
+        end
+    end)
+end
+
+print("🌸 TAKESA HUB // MOBILE PRO EDITION FULLY UPDATED WITH RIVALS & MILITARY ARMY TYCOON!")
