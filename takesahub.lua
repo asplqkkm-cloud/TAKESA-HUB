@@ -1,5 +1,5 @@
 -- ==============================================================================
--- 🌸 [TAKESA HUB] : MOBILE PRO EDITION (ADDED "RIVALS" SCRIPT TO TAB 8)
+-- 🌸 [TAKESA HUB] : MOBILE PRO EDITION (ADDED "MM2" TO TAB 8)
 -- ==============================================================================
 local Plrs, CoreG, RunS, TweenS, Lighting, Camera, UserInputService, TeleportService, HttpService = game:GetService("Players"), game:GetService("CoreGui"), game:GetService("RunService"), game:GetService("TweenService"), game:GetService("Lighting"), workspace.CurrentCamera, game:GetService("UserInputService"), game:GetService("TeleportService"), game:GetService("HttpService")
 local LP = Plrs.LocalPlayer
@@ -139,7 +139,7 @@ local tb8 = mkTab("แมพต่างๆ", 8, 8, 800)
 
 -- Tab 1 Content (หน้าแรก)
 local wLbl = Instance.new("TextLabel", tb1) 
-wLbl.Size, wLbl.Position, wLbl.BackgroundColor3, wLbl.TextColor3, wLbl.TextSize, wLbl.Font, wLbl.Text = UDim2.new(1, 0, 0, 90), UDim2.new(0, 0, 0, 10), Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE PRO EDITION\n  ✨ เพิ่มสคริปต์แมพ Rivals ใน Tab 8 แล้ว!\n  🚀 เลื่อนหน้าจอเพื่อดูเมนูเพิ่มเติมได้เลย!"
+wLbl.Size, wLbl.Position, wLbl.BackgroundColor3, wLbl.TextColor3, wLbl.TextSize, wLbl.Font, wLbl.Text = UDim2.new(1, 0, 0, 90), UDim2.new(0, 0, 0, 10), Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE PRO EDITION\n  ✨ อัปเดตเพิ่มสคริปต์ MM2 ใน Tab 8 เรียบร้อย!\n  🚀 เลื่อนหน้าจอเพื่อดูเมนูเพิ่มเติมได้เลย!"
 wLbl.TextXAlignment = Enum.TextXAlignment.Left cnr(wLbl, 10) addSoftShadow(wLbl)
 
 local tiktokBtn = Instance.new("TextButton", tb1)
@@ -257,19 +257,18 @@ cnr(espB, 8) addSoftShadow(espB)
 local function applyESP(p)
     if not espAct or p == LP then return end
     if p.Character then
-        local ch = p.Character
-        local hum = ch:FindFirstChildOfClass("Humanoid")
+        local hum = p.Character:FindFirstChildOfClass("Humanoid")
         if hum and hum.Health > 0 then
-            if not ch:FindFirstChild("TakesaHighlight") then
-                local hl = Instance.new("Highlight", ch)
+            if not p.Character:FindFirstChild("TakesaHighlight") then
+                local hl = Instance.new("Highlight", p.Character)
                 hl.Name = "TakesaHighlight"
                 hl.FillColor = Color3.fromRGB(90, 180, 255)
                 hl.OutlineColor = Color3.fromRGB(255, 255, 255)
                 hl.FillTransparency = 0.4
             end
-            if ch:FindFirstChild("Head") and not ch:FindFirstChild("TakesaNameTag") then
-                local bg = Instance.new("BillboardGui", ch)
-                bg.Name, bg.Adornee, bg.Size, bg.StudsOffset, bg.AlwaysOnTop = "TakesaNameTag", ch.Head, UDim2.new(0, 140, 0, 25), Vector3.new(0, 2.5, 0), true
+            if p.Character:FindFirstChild("Head") and not p.Character:FindFirstChild("TakesaNameTag") then
+                local bg = Instance.new("BillboardGui", p.Character)
+                bg.Name, bg.Adornee, bg.Size, bg.StudsOffset, bg.AlwaysOnTop = "TakesaNameTag", p.Character.Head, UDim2.new(0, 140, 0, 25), Vector3.new(0, 2.5, 0), true
                 local txt = Instance.new("TextLabel", bg) 
                 txt.Size, txt.BackgroundTransparency = UDim2.new(1,0,1,0), 1
                 txt.TextColor3, txt.TextSize, txt.Font = Color3.fromRGB(50, 110, 210), 12, Enum.Font.GothamBold
@@ -277,8 +276,8 @@ local function applyESP(p)
                 txt.TextStrokeTransparency = 0 
             end
         else
-            if ch:FindFirstChild("TakesaNameTag") then ch.TakesaNameTag:Destroy() end
-            if ch:FindFirstChild("TakesaHighlight") then ch.TakesaHighlight:Destroy() end
+            if p.Character:FindFirstChild("TakesaNameTag") then p.Character.TakesaNameTag:Destroy() end
+            if p.Character:FindFirstChild("TakesaHighlight") then p.Character.TakesaHighlight:Destroy() end
         end
     end
 end
@@ -1114,7 +1113,7 @@ antiAfkBtn.MouseButton1Click:Connect(function()
     antiAfkBtn.Text = "💤 เปิด/ปิด กันถูกเตะออกเกม: " .. (antiAfkActive and "[ เปิดใช้งาน ]" or "[ ปิดอยู่ ]")
 end)
 
--- Tab 8 Content (🗺️ ระบบสคริปต์แมพต่างๆ - เลือกแมพเพื่อรันสคริปต์เฉพาะ)
+-- Tab 8 Content (🗺️ ระบบสคริปต์แมพต่างๆ - รวม MM2, Rivals และ Military Tycoon)
 local mapSelectFrame = Instance.new("Frame", tb8)
 mapSelectFrame.Size, mapSelectFrame.Position, mapSelectFrame.BackgroundTransparency = UDim2.new(1, 0, 1, 0), UDim2.new(0, 0, 0, 0), true
 
@@ -1132,8 +1131,10 @@ local mapList = {
         end
     },
     {
-        name = "แมพอื่นๆ (รอเพิ่มสคริปต์)", 
-        script = nil
+        name = "Murder Mystery 2 (MM2) 🗡️", 
+        script = function()
+            loadstring(game:HttpGet("https://gist.githubusercontent.com/asplqkkm-cloud/91d9d7c60e170322d46c67b2a33189a8/raw/8c6184e3daf189333e7a11316ffa82c120fe59dd/gistfile1.txt"))()
+        end
     }
 }
 
@@ -1168,4 +1169,4 @@ for i, mapData in ipairs(mapList) do
     end)
 end
 
-print("🌸 TAKESA HUB // MOBILE PRO EDITION FULLY UPDATED WITH RIVALS & MILITARY ARMY TYCOON!")
+print("🌸 TAKESA HUB // MOBILE PRO EDITION FULLY UPDATED WITH MM2, RIVALS & MILITARY ARMY TYCOON!")
