@@ -1,5 +1,5 @@
 -- ==============================================================================
--- 🌸 [TAKESA HUB] : MOBILE OPTIMIZED EDITION (FULL PACK + 5 PRO FEATURES)
+-- 🌸 [TAKESA HUB] : MOBILE PRO EDITION (FIXED REJOIN BUTTON)
 -- ==============================================================================
 local Plrs, CoreG, RunS, TweenS, Lighting, Camera, UserInputService, TeleportService, HttpService = game:GetService("Players"), game:GetService("CoreGui"), game:GetService("RunService"), game:GetService("TweenService"), game:GetService("Lighting"), workspace.CurrentCamera, game:GetService("UserInputService"), game:GetService("TeleportService"), game:GetService("HttpService")
 local LP = Plrs.LocalPlayer
@@ -93,7 +93,7 @@ tBtn.MouseButton1Click:Connect(function()
 end)
 
 local tH = Instance.new("ScrollingFrame", mF)
-tH.Size, tH.Position, tH.BackgroundTransparency, tH.CanvasSize, tH.ScrollBarThickness = UDim2.new(1, -10, 0, 40), UDim2.new(0, 5, 0, 50), true, UDim2.new(0, 450, 0, 0), 0
+tH.Size, tH.Position, tH.BackgroundTransparency, tH.CanvasSize, tH.ScrollBarThickness = UDim2.new(1, -10, 0, 40), UDim2.new(0, 5, 0, 50), true, UDim2.new(0, 525, 0, 0), 0
 
 local cH = Instance.new("Frame", mF) 
 cH.Size, cH.Position, cH.BackgroundTransparency = UDim2.new(1, -16, 1, -100), UDim2.new(0, 8, 0, 95), true
@@ -110,7 +110,7 @@ local function mkTab(name, idx, totalTabs, contentHeight)
 
     local scr = Instance.new("ScrollingFrame", cH) 
     scr.Size, scr.Position, scr.BackgroundTransparency, scr.ScrollBarThickness = UDim2.new(1,0,1,0), UDim2.new(0,0,0,0), true, 6
-    scr.ScrollBarImageColor3, scr.CanvasSize, scr.Visible = Color3.fromRGB(90, 140, 255), UDim2.new(0, 0, 0, contentHeight or 1500), (idx == 1)
+    scr.ScrollBarImageColor3, scr.CanvasSize, scr.Visible = Color3.fromRGB(90, 140, 255), UDim2.new(0, 0, 0, contentHeight or 2000), (idx == 1)
     
     table.insert(tabs, btn) 
     table.insert(containers, scr)
@@ -128,28 +128,60 @@ local function mkTab(name, idx, totalTabs, contentHeight)
     return scr
 end
 
-local tb1 = mkTab("หน้าแรก", 1, 6, 350)
-local tb2 = mkTab("วาร์ป", 2, 6, 350)
-local tb3 = mkTab("ESP", 3, 6, 250)
-local tb4 = mkTab("ตัวละคร", 4, 6, 1500)
-local tb5 = mkTab("เพลง", 5, 6, 4000)
-local tb6 = mkTab("ล็อคเป้า", 6, 6, 400)
+local tb1 = mkTab("หน้าแรก", 1, 7, 350)
+local tb2 = mkTab("วาร์ป", 2, 7, 350)
+local tb3 = mkTab("ESP", 3, 7, 250)
+local tb4 = mkTab("ตัวละคร", 4, 7, 2000)
+local tb5 = mkTab("เพลง", 5, 7, 4000)
+local tb6 = mkTab("ล็อคเป้า", 6, 7, 400)
+local tb7 = mkTab("ช่วยเหลือ", 7, 7, 500)
 
--- Tab 1 Content (หน้าแรก + เพิ่มปุ่ม Server Hop & Rejoin)
+-- Tab 1 Content (หน้าแรก)
 local wLbl = Instance.new("TextLabel", tb1) 
-wLbl.Size, wLbl.Position, wLbl.BackgroundColor3, wLbl.TextColor3, wLbl.TextSize, wLbl.Font, wLbl.Text = UDim2.new(1, 0, 0, 110), UDim2.new(0, 0, 0, 10), Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE PRO EDITION\n  ✨ รวมฟังก์ชันเสริมพิเศษ + เพลงเบสหนัก\n  🚀 เลื่อนหน้าจอเพื่อดูเมนูเพิ่มเติมได้เลย!"
+wLbl.Size, wLbl.Position, wLbl.BackgroundColor3, wLbl.TextColor3, wLbl.TextSize, wLbl.Font, wLbl.Text = UDim2.new(1, 0, 0, 90), UDim2.new(0, 0, 0, 10), Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE PRO EDITION\n  ✨ แก้ไขปุ่ม Rejoin ให้กลับเซิร์ฟเวอร์เดิมสมบูรณ์แบบ!\n  🚀 เลื่อนหน้าจอเพื่อดูเมนูเพิ่มเติมได้เลย!"
 wLbl.TextXAlignment = Enum.TextXAlignment.Left cnr(wLbl, 10) addSoftShadow(wLbl)
 
+local tiktokBtn = Instance.new("TextButton", tb1)
+tiktokBtn.Size, tiktokBtn.Position = UDim2.new(1, 0, 0, 42), UDim2.new(0, 0, 0, 108)
+tiktokBtn.BackgroundColor3, tiktokBtn.TextColor3, tiktokBtn.TextSize, tiktokBtn.Font, tiktokBtn.Text = Color3.fromRGB(255, 235, 240), Color3.fromRGB(220, 80, 120), 12, Enum.Font.GothamBold, "🎵 TikTok : @asplqkqkl03 (แตะเพื่อคัดลอก)"
+cnr(tiktokBtn, 8) addSoftShadow(tiktokBtn)
+
+tiktokBtn.MouseButton1Click:Connect(function()
+    pcall(function()
+        local tiktokUrl = "https://www.tiktok.com/@asplqkqkl03?_r=1&_t=ZS-9ATqcI2try3"
+        if setclipboard then
+            setclipboard(tiktokUrl)
+            tiktokBtn.Text = "✅ คัดลอกลิงก์ TikTok สำเร็จ!"
+            tiktokBtn.BackgroundColor3 = Color3.fromRGB(80, 200, 120)
+            tiktokBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+            task.wait(2)
+            tiktokBtn.Text = "🎵 TikTok : @asplqkqkl03 (แตะเพื่อคัดลอก)"
+            tiktokBtn.BackgroundColor3 = Color3.fromRGB(255, 235, 240)
+            tiktokBtn.TextColor3 = Color3.fromRGB(220, 80, 120)
+        else
+            tiktokBtn.Text = "⚠️ Executor ไม่รองรับคำสั่งคัดลอก"
+            task.wait(2)
+            tiktokBtn.Text = "🎵 TikTok : @asplqkqkl03 (แตะเพื่อคัดลอก)"
+        end
+    end)
+end)
+
 local rejoinBtn = Instance.new("TextButton", tb1)
-rejoinBtn.Size, rejoinBtn.Position = UDim2.new(1, 0, 0, 42), UDim2.new(0, 0, 0, 130)
+rejoinBtn.Size, rejoinBtn.Position = UDim2.new(1, 0, 0, 42), UDim2.new(0, 0, 0, 158)
 rejoinBtn.BackgroundColor3, rejoinBtn.TextColor3, rejoinBtn.TextSize, rejoinBtn.Font, rejoinBtn.Text = Color3.fromRGB(230, 238, 250), Color3.fromRGB(60, 80, 120), 12, Enum.Font.GothamBold, "🔄 เข้าเซิร์ฟเวอร์เดิมใหม่ (Rejoin)"
 cnr(rejoinBtn, 8) addSoftShadow(rejoinBtn)
+
 rejoinBtn.MouseButton1Click:Connect(function()
-    TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, LP)
+    rejoinBtn.Text = "⏳ กำลังเชื่อมต่อกลับเซิร์ฟเวอร์เดิม..."
+    pcall(function()
+        TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, LP)
+    end)
+    task.wait(3)
+    rejoinBtn.Text = "🔄 เข้าเซิร์ฟเวอร์เดิมใหม่ (Rejoin)"
 end)
 
 local hopBtn = Instance.new("TextButton", tb1)
-hopBtn.Size, hopBtn.Position = UDim2.new(1, 0, 0, 42), UDim2.new(0, 0, 0, 182)
+hopBtn.Size, hopBtn.Position = UDim2.new(1, 0, 0, 42), UDim2.new(0, 0, 0, 210)
 hopBtn.BackgroundColor3, hopBtn.TextColor3, hopBtn.TextSize, hopBtn.Font, hopBtn.Text = Color3.fromRGB(230, 238, 250), Color3.fromRGB(60, 80, 120), 12, Enum.Font.GothamBold, "🌐 ย้ายไปห้องอื่นอัตโนมัติ (Server Hop)"
 cnr(hopBtn, 8) addSoftShadow(hopBtn)
 hopBtn.MouseButton1Click:Connect(function()
@@ -262,14 +294,10 @@ espB.MouseButton1Click:Connect(function()
     espB.BackgroundColor3 = espAct and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
     espB.TextColor3 = espAct and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
     espB.Text = "👀 เปิด/ปิด มองทะลุ: " .. (espAct and "[ เปิดใช้งาน ]" or "[ ปิดอยู่ ]")
-    for _, p in pairs(Plrs:GetPlayers()) do
-        if espAct then applyESP(p) else removeESP(p) end
-    end
+    for _, p in pairs(Plrs:GetPlayers()) do if espAct then applyESP(p) else removeESP(p) end end
 end)
 
-Plrs.PlayerAdded:Connect(function(p)
-    p.CharacterAdded:Connect(function() if espAct then task.wait(0.5) applyESP(p) end end)
-end)
+Plrs.PlayerAdded:Connect(function(p) p.CharacterAdded:Connect(function() if espAct then task.wait(0.5) applyESP(p) end end) end)
 Plrs.PlayerRemoving:Connect(function(p) removeESP(p) end)
 
 for _, p in pairs(Plrs:GetPlayers()) do
@@ -280,9 +308,9 @@ RunS.RenderStepped:Connect(function()
     if espAct then for _, p in pairs(Plrs:GetPlayers()) do if p ~= LP then applyESP(p) end end end
 end)
 
--- Tab 4 Content (Character + Anti-Knockback + 5 Pro Modules)
+-- Tab 4 Content (Character + Anti-Knockback + Drone + Pro Features)
 local noclip, spdJump, antiV, infZoom, flyAct, boostFPSAct, antiKBAct = false, false, false, false, false, false, false
-local desyncAct, infJumpAct, airWalkAct, curveAct = false, false, false, false
+local desyncAct, infJumpAct, airWalkAct = false, false, false
 local flySpeed = 50
 local bgConnection
 local airWalkPlatform = nil
@@ -302,9 +330,7 @@ addT(10, "🚀 เปิด/ปิด Boost FPS (ลดแลค): [ ปิด�
     pcall(function()
         Lighting.GlobalShadows = not boostFPSAct
         if setfpscap then setfpscap(boostFPSAct and 240 or 60) end
-        for _, v in pairs(game:GetDescendants()) do
-            if boostFPSAct and v:IsA("BasePart") then v.CastShadow = false end
-        end
+        for _, v in pairs(game:GetDescendants()) do if boostFPSAct and v:IsA("BasePart") then v.CastShadow = false end end
     end)
 end)
 
@@ -335,14 +361,11 @@ RunS.RenderStepped:Connect(function()
         local hrp = LP.Character:FindFirstChild("HumanoidRootPart")
         if hrp then
             local vel = hrp.AssemblyLinearVelocity
-            if math.abs(vel.X) > 40 or math.abs(vel.Z) > 40 then
-                hrp.AssemblyLinearVelocity = Vector3.new(0, vel.Y, 0)
-            end
+            if math.abs(vel.X) > 40 or math.abs(vel.Z) > 40 then hrp.AssemblyLinearVelocity = Vector3.new(0, vel.Y, 0) end
         end
     end
 end)
 
--- 👻 1. Desync / Ghost Motion (ร่างเงาอำพรางตำแหน่ง)
 addT(136, "👻 เปิด/ปิด ร่างเงาอำพราง (Desync): [ ปิดอยู่ ]", function(b)
     desyncAct = not desyncAct
     b.BackgroundColor3 = desyncAct and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
@@ -360,7 +383,6 @@ RunS.Heartbeat:Connect(function()
     end
 end)
 
--- 🦘 2. Infinite Jump (กระโดดไม่จำกัดบนอากาศ)
 addT(178, "🦘 เปิด/ปิด กระโดดไม่จำกัด (Infinite Jump): [ ปิดอยู่ ]", function(b)
     infJumpAct = not infJumpAct
     b.BackgroundColor3 = infJumpAct and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
@@ -374,7 +396,6 @@ UserInputService.JumpRequest:Connect(function()
     end
 end)
 
--- ☁️ 3. Air Walk (เดินบนอากาศ)
 addT(220, "☁️ เปิด/ปิด เดินบนอากาศ (Air Walk): [ ปิดอยู่ ]", function(b)
     airWalkAct = not airWalkAct
     b.BackgroundColor3 = airWalkAct and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
@@ -527,14 +548,144 @@ RunS.RenderStepped:Connect(function()
     end
 end)
 
-addT(552, "💀 รีเซ็ตตัวละคร (Force Reset)", function(b)
+local droneSpeedBox = Instance.new("TextBox", tb4)
+droneSpeedBox.Size, droneSpeedBox.Position = UDim2.new(1, 0, 0, 34), UDim2.new(0, 0, 0, 552)
+droneSpeedBox.BackgroundColor3, droneSpeedBox.TextColor3, droneSpeedBox.PlaceholderText, droneSpeedBox.Text, droneSpeedBox.TextSize, droneSpeedBox.Font = Color3.fromRGB(245, 247, 252), Color3.fromRGB(50, 110, 210), "ความเร็วโดรน (ค่าเริ่มต้น: 60)", "60", 11, Enum.Font.GothamBold
+cnr(droneSpeedBox, 6) addSoftShadow(droneSpeedBox)
+
+local droneActive = false
+local dronePart = nil
+local droneConn = nil
+
+local droneGui = Instance.new("ScreenGui", gui)
+droneGui.Name = "TakesaDroneControls"
+droneGui.Enabled = false
+droneGui.ResetOnSpawn = false
+
+local exitDroneBtn = Instance.new("TextButton", droneGui)
+exitDroneBtn.Size, exitDroneBtn.Position = UDim2.new(0, 140, 0, 40), UDim2.new(0.5, -70, 0, 15)
+exitDroneBtn.BackgroundColor3, exitDroneBtn.TextColor3, exitDroneBtn.TextSize, exitDroneBtn.Font, exitDroneBtn.Text = Color3.fromRGB(240, 100, 100), Color3.fromRGB(255, 255, 255), 12, Enum.Font.GothamBold, "❌ ออกจากโดรน"
+cnr(exitDroneBtn, 8) addSoftShadow(exitDroneBtn)
+
+local dUp = Instance.new("TextButton", droneGui)
+dUp.Size, dUp.Position = UDim2.new(0, 45, 0, 45), UDim2.new(1, -60, 0.5, -55)
+dUp.BackgroundColor3, dUp.TextColor3, dUp.TextSize, dUp.Font, dUp.Text = Color3.fromRGB(90, 140, 255), Color3.fromRGB(255, 255, 255), 18, Enum.Font.GothamBold, "⬆"
+cnr(dUp, 22) addSoftShadow(dUp)
+
+local dDown = Instance.new("TextButton", droneGui)
+dDown.Size, dDown.Position = UDim2.new(0, 45, 0, 45), UDim2.new(1, -60, 0.5, 5)
+dDown.BackgroundColor3, dDown.TextColor3, dDown.TextSize, dDown.Font, dDown.Text = Color3.fromRGB(90, 140, 255), Color3.fromRGB(255, 255, 255), 18, Enum.Font.GothamBold, "⬇"
+cnr(dDown, 22) addSoftShadow(dDown)
+
+local dForward = Instance.new("TextButton", droneGui)
+dForward.Size, dForward.Position = UDim2.new(0, 45, 0, 45), UDim2.new(0, 20, 0.5, -55)
+dForward.BackgroundColor3, dForward.TextColor3, dForward.TextSize, dForward.Font, dForward.Text = Color3.fromRGB(90, 140, 255), Color3.fromRGB(255, 255, 255), 14, Enum.Font.GothamBold, "W"
+cnr(dForward, 22) addSoftShadow(dForward)
+
+local dBackward = Instance.new("TextButton", droneGui)
+dBackward.Size, dBackward.Position = UDim2.new(0, 45, 0, 45), UDim2.new(0, 20, 0.5, 5)
+dBackward.BackgroundColor3, dBackward.TextColor3, dBackward.TextSize, dBackward.Font, dBackward.Text = Color3.fromRGB(90, 140, 255), Color3.fromRGB(255, 255, 255), 14, Enum.Font.GothamBold, "S"
+cnr(dBackward, 22) addSoftShadow(dBackward)
+
+local dLeft = Instance.new("TextButton", droneGui)
+dLeft.Size, dLeft.Position = UDim2.new(0, 40, 0, 40), UDim2.new(0, 70, 0.5, -25)
+dLeft.BackgroundColor3, dLeft.TextColor3, dLeft.TextSize, dLeft.Font, dLeft.Text = Color3.fromRGB(90, 140, 255), Color3.fromRGB(255, 255, 255), 14, Enum.Font.GothamBold, "A"
+cnr(dLeft, 20) addSoftShadow(dLeft)
+
+local dRight = Instance.new("TextButton", droneGui)
+dRight.Size, dRight.Position = UDim2.new(0, 40, 0, 40), UDim2.new(0, 120, 0.5, -25)
+dRight.BackgroundColor3, dRight.TextColor3, dRight.TextSize, dRight.Font, dRight.Text = Color3.fromRGB(90, 140, 255), Color3.fromRGB(255, 255, 255), 14, Enum.Font.GothamBold, "D"
+cnr(dRight, 20) addSoftShadow(dRight)
+
+local dUpState, dDownState, dFwdState, dBwdState, dLeftState, dRightState = false, false, false, false, false, false
+
+dUp.MouseButton1Down:Connect(function() dUpState = true end)
+dUp.MouseButton1Up:Connect(function() dUpState = false end)
+dDown.MouseButton1Down:Connect(function() dDownState = true end)
+dDown.MouseButton1Up:Connect(function() dDownState = false end)
+
+dForward.MouseButton1Down:Connect(function() dFwdState = true end)
+dForward.MouseButton1Up:Connect(function() dFwdState = false end)
+dBackward.MouseButton1Down:Connect(function() dBwdState = true end)
+dBackward.MouseButton1Up:Connect(function() dBwdState = false end)
+
+dLeft.MouseButton1Down:Connect(function() dLeftState = true end)
+dLeft.MouseButton1Up:Connect(function() dLeftState = false end)
+dRight.MouseButton1Down:Connect(function() dRightState = true end)
+dRight.MouseButton1Up:Connect(function() dRightState = false end)
+
+addT(594, "🛸 เปิด/ปิด โหมดโดรนสำรวจ: [ ปิดอยู่ ]", function(b)
+    droneActive = not droneActive
+    b.BackgroundColor3 = droneActive and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
+    b.TextColor3 = droneActive and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
+    b.Text = "🛸 เปิด/ปิด โหมดโดรนสำรวจ: " .. (droneActive and "[ เปิดใช้งาน ]" or "[ ปิดอยู่ ]")
+    droneGui.Enabled = droneActive
+    
+    local char = LP.Character
+    if not char then return end
+    local hrp = char:FindFirstChild("HumanoidRootPart")
+    
+    if droneActive then
+        if hrp then
+            dronePart = Instance.new("Part", workspace)
+            dronePart.Name = "TakesaDroneCameraPart"
+            dronePart.Size = Vector3.new(1, 1, 1)
+            dronePart.Transparency = 1
+            dronePart.Anchored = true
+            dronePart.CanCollide = false
+            dronePart.CFrame = hrp.CFrame + Vector3.new(0, 5, 0)
+            
+            Camera.CameraSubject = dronePart
+            
+            droneConn = RunS.RenderStepped:Connect(function()
+                if not droneActive or not dronePart then return end
+                local cam = workspace.CurrentCamera
+                local moveDir = Vector3.new(0, 0, 0)
+                local uS = game:GetService("UserInputService")
+                
+                if dFwdState or uS:IsKeyDown(Enum.KeyCode.W) then moveDir = moveDir + cam.CFrame.LookVector end
+                if dBwdState or uS:IsKeyDown(Enum.KeyCode.S) then moveDir = moveDir - cam.CFrame.LookVector end
+                if dLeftState or uS:IsKeyDown(Enum.KeyCode.A) then moveDir = moveDir - cam.CFrame.RightVector end
+                if dRightState or uS:IsKeyDown(Enum.KeyCode.D) then moveDir = moveDir + cam.CFrame.RightVector end
+                if dUpState then moveDir = moveDir + Vector3.new(0, 1, 0) end
+                if dDownState then moveDir = moveDir - Vector3.new(0, 1, 0) end
+                
+                local currentDroneSpeed = tonumber(droneSpeedBox.Text) or 60
+                dronePart.CFrame = dronePart.CFrame + (moveDir * (currentDroneSpeed / 50))
+            end)
+        end
+    else
+        dUpState, dDownState, dFwdState, dBwdState, dLeftState, dRightState = false, false, false, false, false, false
+        if droneConn then droneConn:Disconnect() end
+        if dronePart then dronePart:Destroy() dronePart = nil end
+        if char and char:FindFirstChildOfClass("Humanoid") then
+            Camera.CameraSubject = char:FindFirstChildOfClass("Humanoid")
+        end
+    end
+end)
+
+exitDroneBtn.MouseButton1Click:Connect(function()
+    if droneActive then
+        droneActive = false
+        droneGui.Enabled = false
+        dUpState, dDownState, dFwdState, dBwdState, dLeftState, dRightState = false, false, false, false, false, false
+        if droneConn then droneConn:Disconnect() end
+        if dronePart then dronePart:Destroy() dronePart = nil end
+        local char = LP.Character
+        if char and char:FindFirstChildOfClass("Humanoid") then
+            Camera.CameraSubject = char:FindFirstChildOfClass("Humanoid")
+        end
+    end
+end)
+
+addT(636, "💀 รีเซ็ตตัวละคร (Force Reset)", function(b)
     pcall(function()
         local hum = LP.Character and LP.Character:FindFirstChildOfClass("Humanoid")
         if hum then hum.Health = 0 end
     end)
 end)
 
--- Tab 5 Content (Music Player + เพิ่มเพลง เบสหนัก ไว้บนสุด)
+-- Tab 5 Content (Music Player)
 local musicLabel = Instance.new("TextLabel", tb5)
 musicLabel.Size, musicLabel.Position, musicLabel.BackgroundTransparency = UDim2.new(1, 0, 0, 20), UDim2.new(0, 0, 0, 0), true
 musicLabel.TextColor3, musicLabel.TextSize, musicLabel.Font = Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold
@@ -561,6 +712,13 @@ songScroll.Size, songScroll.Position, songScroll.BackgroundTransparency, songScr
 songScroll.ScrollBarImageColor3 = Color3.fromRGB(90, 140, 255)
 
 local musicList = {
+    {name = "เพลงใหม่ 1 🎵", id = "115189039255362"},
+    {name = "เพลงใหม่ 3 🎵", id = "74697049223758"},
+    {name = "เพลงใหม่ 4 🎵", id = "110919391228823"},
+    {name = "เพลงใหม่ 5 🎵", id = "121242950842428"},
+    {name = "เพลงใหม่ 6 🎵", id = "105334271155482"},
+    {name = "เพลงใหม่ 7 🎵", id = "134140709844049"},
+    {name = "เพลงใหม่ 8 🎵", id = "132049153370517"},
     {name = "เบสหนัก 🔊", id = "72695526421040"},
     {name = "ทนแดนซ์", id = "81533059856274"},
     {name = "แดนซ์มันๆ", id = "108937679300559"},
@@ -869,4 +1027,85 @@ RunS.RenderStepped:Connect(function()
     end
 end)
 
-print("🌸 TAKESA HUB // MOBILE PRO EDITION FULLY LOADED!")
+-- Tab 7 Content (🛠️ ระบบช่วยเหลือ - Auto Clicker, Anti-AFK, FPS / Ping Counter)
+local statsLabel = Instance.new("TextLabel", tb7)
+statsLabel.Size, statsLabel.Position = UDim2.new(1, 0, 0, 45), UDim2.new(0, 0, 0, 10)
+statsLabel.BackgroundColor3, statsLabel.TextColor3, statsLabel.TextSize, statsLabel.Font = Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 12, Enum.Font.GothamBold
+statsLabel.Text = "  📊 FPS: Calculating... | Ping: Calculating..."
+statsLabel.TextXAlignment = Enum.TextXAlignment.Left
+cnr(statsLabel, 8) addSoftShadow(statsLabel)
+
+local frameCount = 0
+local lastCheck = tick()
+
+RunS.RenderStepped:Connect(function()
+    frameCount = frameCount + 1
+    local now = tick()
+    if now - lastCheck >= 1 then
+        local fps = math.floor(frameCount / (now - lastCheck))
+        local ping = math.floor(workspace:GetRealPhysicalResponseTime() * 1000)
+        statsLabel.Text = "  📊 FPS: " .. tostring(fps) .. " | Ping: " .. tostring(ping) .. " ms"
+        frameCount = 0
+        lastCheck = now
+    end
+end)
+
+local autoClickActive = false
+local clickIntervalBox = Instance.new("TextBox", tb7)
+clickIntervalBox.Size, clickIntervalBox.Position = UDim2.new(1, 0, 0, 35), UDim2.new(0, 0, 0, 65)
+clickIntervalBox.BackgroundColor3, clickIntervalBox.TextColor3, clickIntervalBox.PlaceholderText, clickIntervalBox.Text, clickIntervalBox.TextSize, clickIntervalBox.Font = Color3.fromRGB(245, 247, 252), Color3.fromRGB(50, 110, 210), "ความถี่คลิกต่อวินาที (เช่น 0.1)", "0.1", 11, Enum.Font.GothamBold
+cnr(clickIntervalBox, 6) addSoftShadow(clickIntervalBox)
+
+local autoClickBtn = Instance.new("TextButton", tb7)
+autoClickBtn.Size, autoClickBtn.Position = UDim2.new(1, 0, 0, 42), UDim2.new(0, 0, 0, 110)
+autoClickBtn.BackgroundColor3, autoClickBtn.TextColor3, autoClickBtn.TextSize, autoClickBtn.Font, autoClickBtn.Text = Color3.fromRGB(230, 238, 250), Color3.fromRGB(60, 80, 120), 12, Enum.Font.GothamBold, "🖱️ เปิด/ปิด Auto Clicker: [ ปิดอยู่ ]"
+cnr(autoClickBtn, 8) addSoftShadow(autoClickBtn)
+
+autoClickBtn.MouseButton1Click:Connect(function()
+    autoClickActive = not autoClickActive
+    autoClickBtn.BackgroundColor3 = autoClickActive and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
+    autoClickBtn.TextColor3 = autoClickActive and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
+    autoClickBtn.Text = "🖱️ เปิด/ปิด Auto Clicker: " .. (autoClickActive and "[ เปิดใช้งาน ]" or "[ ปิดอยู่ ]")
+    
+    if autoClickActive then
+        task.spawn(function()
+            while autoClickActive do
+                local interval = tonumber(clickIntervalBox.Text) or 0.1
+                pcall(function()
+                    if VirtualUser then
+                        VirtualUser:CaptureController()
+                        VirtualUser:ClickButton1(Vector2.new(0, 0))
+                    else
+                        local tool = LP.Character and LP.Character:FindFirstChildOfClass("Tool")
+                        if tool then tool:Activate() end
+                    end
+                end)
+                task.wait(interval)
+            end
+        end)
+    end
+end)
+
+local antiAfkActive = false
+local antiAfkBtn = Instance.new("TextButton", tb7)
+antiAfkBtn.Size, antiAfkBtn.Position = UDim2.new(1, 0, 0, 42), UDim2.new(0, 0, 0, 162)
+antiAfkBtn.BackgroundColor3, antiAfkBtn.TextColor3, antiAfkBtn.TextSize, antiAfkBtn.Font, antiAfkBtn.Text = Color3.fromRGB(230, 238, 250), Color3.fromRGB(60, 80, 120), 12, Enum.Font.GothamBold, "💤 เปิด/ปิด กันถูกเตะออกเกม (Anti-AFK): [ ปิดอยู่ ]"
+cnr(antiAfkBtn, 8) addSoftShadow(antiAfkBtn)
+
+local vu = game:GetService("VirtualUser")
+LP.Idled:Connect(function()
+    if antiAfkActive then
+        vu:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+        task.wait(1)
+        vu:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+    end
+end)
+
+antiAfkBtn.MouseButton1Click:Connect(function()
+    antiAfkActive = not antiAfkActive
+    antiAfkBtn.BackgroundColor3 = antiAfkActive and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
+    antiAfkBtn.TextColor3 = antiAfkActive and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
+    antiAfkBtn.Text = "💤 เปิด/ปิด กันถูกเตะออกเกม: " .. (antiAfkActive and "[ เปิดใช้งาน ]" or "[ ปิดอยู่ ]")
+end)
+
+print("🌸 TAKESA HUB // MOBILE PRO EDITION FULLY LOADED & FIXED!")
