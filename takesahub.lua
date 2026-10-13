@@ -1,5 +1,5 @@
 -- ==============================================================================
--- 🌸 [TAKESA HUB] : MOBILE PRO EDITION (ADDED "Command an Army" TO TAB 8)
+-- 🌸 [TAKESA HUB] : MOBILE PRO EDITION (UPDATED WITH "เขตความรุนแรง")
 -- ==============================================================================
 local Plrs, CoreG, RunS, TweenS, Lighting, Camera, UserInputService, TeleportService, HttpService = game:GetService("Players"), game:GetService("CoreGui"), game:GetService("RunService"), game:GetService("TweenService"), game:GetService("Lighting"), workspace.CurrentCamera, game:GetService("UserInputService"), game:GetService("TeleportService"), game:GetService("HttpService")
 local LP = Plrs.LocalPlayer
@@ -135,11 +135,11 @@ local tb4 = mkTab("ตัวละคร", 4, 8, 2000)
 local tb5 = mkTab("เพลง", 5, 8, 4200)
 local tb6 = mkTab("ล็อคเป้า", 6, 8, 400)
 local tb7 = mkTab("ช่วยเหลือ", 7, 8, 500)
-local tb8 = mkTab("แมพต่างๆ", 8, 8, 1200)
+local tb8 = mkTab("แมพต่างๆ", 8, 8, 1500)
 
 -- Tab 1 Content (หน้าแรก)
 local wLbl = Instance.new("TextLabel", tb1) 
-wLbl.Size, wLbl.Position, wLbl.BackgroundColor3, wLbl.TextColor3, wLbl.TextSize, wLbl.Font, wLbl.Text = UDim2.new(1, 0, 0, 90), UDim2.new(0, 0, 0, 10), Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE PRO EDITION\n  ✨ อัปเดตเพิ่ม Command an Army ใน Tab 8 แล้ว!\n  🚀 เลื่อนหน้าจอเพื่อดูเมนูเพิ่มเติมได้เลย!"
+wLbl.Size, wLbl.Position, wLbl.BackgroundColor3, wLbl.TextColor3, wLbl.TextSize, wLbl.Font, wLbl.Text = UDim2.new(1, 0, 0, 90), UDim2.new(0, 0, 0, 10), Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE PRO EDITION\n  ✨ อัปเดตเพิ่มแมพ เขตความรุนแรง ใน Tab 8 แล้ว!\n  🚀 เลื่อนหน้าจอเพื่อดูเมนูเพิ่มเติมได้เลย!"
 wLbl.TextXAlignment = Enum.TextXAlignment.Left cnr(wLbl, 10) addSoftShadow(wLbl)
 
 local tiktokBtn = Instance.new("TextButton", tb1)
@@ -1113,7 +1113,7 @@ antiAfkBtn.MouseButton1Click:Connect(function()
     antiAfkBtn.Text = "💤 เปิด/ปิด กันถูกเตะออกเกม: " .. (antiAfkActive and "[ เปิดใช้งาน ]" or "[ ปิดอยู่ ]")
 end)
 
--- Tab 8 Content (🗺️ ระบบสคริปต์แมพต่างๆ + ป้ายเตือนค่าย Hub อื่นๆ - รวม 6 แมพ)
+-- Tab 8 Content (🗺️ ระบบสคริปต์แมพต่างๆ + ป้ายเตือนค่าย Hub อื่นๆ)
 local mapNoteLbl = Instance.new("TextLabel", tb8)
 mapNoteLbl.Size, mapNoteLbl.Position = UDim2.new(1, 0, 0, 36), UDim2.new(0, 0, 0, 5)
 mapNoteLbl.BackgroundColor3, mapNoteLbl.TextColor3, mapNoteLbl.TextSize, mapNoteLbl.Font = Color3.fromRGB(255, 245, 230), Color3.fromRGB(210, 120, 30), 10, Enum.Font.GothamBold
@@ -1160,6 +1160,24 @@ local mapList = {
         script = function()
             loadstring(game:HttpGet("https://chronix-gate.net/l"))()
         end
+    },
+    {
+        name = "Baseball ⚾", 
+        script = function()
+            loadstring(game:HttpGet("https://script-vault-production.up.railway.app/raw/cca31b760609d8fc/main.lua"))()
+        end
+    },
+    {
+        name = "Brookhaven 🏡", 
+        script = function()
+            loadstring(game:HttpGet("https://script-vault-production.up.railway.app/raw/cca31b760609d8fc/main.lua"))()
+        end
+    },
+    {
+        name = "เขตความรุนแรง 💥", 
+        script = function()
+            loadstring(game:HttpGet("https://chronix-gate.net/l"))()
+        end
     }
 }
 
@@ -1196,4 +1214,4 @@ for i, mapData in ipairs(mapList) do
     end)
 end
 
-print("🌸 TAKESA HUB // MOBILE PRO EDITION FULLY UPDATED WITH ALL 6 MAPS!")
+print("🌸 TAKESA HUB // MOBILE PRO EDITION FULLY UPDATED WITH ALL MAPS!")
