@@ -1,10 +1,58 @@
 -- ==============================================================================
--- 🌸 [TAKESA HUB] : FINAL KEY SYSTEM LOADER
+-- 🌸 [TAKESA HUB] : FINAL KEY SYSTEM LOADER (WITH 24H CACHE SYSTEM)
 -- ==============================================================================
 local HttpService = game:GetService("HttpService")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local LP = Players.LocalPlayer
+
+-- ระบบเช็คและบันทึกเวลา 24 ชั่วโมง (Cache System)
+local fileName = "TakesaHub_Session.json"
+local cacheValidHours = 24
+
+local function isKeyCached()
+    if readfile and writefile and isfile then
+        if isfile(fileName) then
+            local success, data = pcall(function()
+                return HttpService:JSONDecode(readfile(fileName))
+            end)
+            if success and data and data.timestamp then
+                local currentTime = os.time()
+                local elapsedSeconds = currentTime - data.timestamp
+                local elapsedHours = elapsedSeconds / 3600
+                -- ถ้ายังไม่ครบ 24 ชั่วโมง และคีย์ตรงกัน ให้ผ่านได้เลย
+                if elapsedHours < cacheValidHours then
+                    return true
+                end
+            end
+        end
+    end
+    return false
+end
+
+local function saveKeyCache()
+    if writefile then
+        pcall(function()
+            local data = {
+                timestamp = os.time()
+            }
+            writefile(fileName, HttpService:JSONEncode(data))
+        end)
+    end
+end
+
+-- ฟังก์ชันรันสคริปต์หลัก TAKESA HUB
+local function loadMainScript()
+    pcall(function()
+        loadstring(game:HttpGet("https://gist.githubusercontent.com/asplqkkm-cloud/898f8282f79e122278c77a66102f441b/raw/3c2ec24dc10601686587f39df9ff64d7349a98c6/gistfile1.txt"))()
+    end)
+end
+
+-- ตรวจสอบว่าเคยใส่คีย์ภายใน 24 ชม. หรือยัง ถ้าเคยแล้วเปิด Hub ทันที
+if isKeyCached() then
+    loadMainScript()
+    return
+end
 
 -- คำนวณคีย์ประจำวัน (อ้างอิงตามวัน/เดือน UTC)
 local dateTable = os.date("!*t")
@@ -13,7 +61,7 @@ local month = dateTable.month
 local secretMath = ((day * 313) + (month * 719) + 88665)
 local EXPECTED_KEY = "TK-" .. tostring(secretMath) .. "-HUB"
 
--- สร้าง UI หน้าต่างใส่คีย์
+-- สร้าง UI หน้าต่างใส่คีย์ (กรณีที่ยังไม่เคยยืนยัน หรือหมดอายุ 24 ชม.)
 local guiName = "TakesaKeySystemUI"
 if CoreGui:FindFirstChild(guiName) then CoreGui[guiName]:Destroy() end
 if LP.PlayerGui:FindFirstChild(guiName) then LP.PlayerGui[guiName]:Destroy() end
@@ -75,7 +123,7 @@ getLinkBtn.Text = "📋 คัดลอกลิงก์รับคีย์"
 local linkCorner = Instance.new("UICorner", getLinkBtn)
 linkCorner.CornerRadius = UDim.new(0, 8)
 
--- ลิงก์ Public Gist ตัวจริงของน้อง
+-- ลิงก์ Public Gist ของน้อง
 local GIST_KEY_URL = "https://gist.github.com/asplqkkm-cloud/bd31493794798e8f875113919c03a837"
 
 getLinkBtn.MouseButton1Click:Connect(function()
@@ -93,13 +141,15 @@ submitBtn.MouseButton1Click:Connect(function()
     if textBox.Text == EXPECTED_KEY then
         submitBtn.Text = "✅ คีย์ถูกต้อง!"
         submitBtn.BackgroundColor3 = Color3.fromRGB(80, 200, 120)
+        
+        -- บันทึกเวลาจำสิทธิ์ 24 ชั่วโมงลงไฟล์เครื่อง
+        saveKeyCache()
+        
         task.wait(1)
         screenGui:Destroy()
         
         -- โหลดสคริปต์หลัก TAKESA HUB
-        pcall(function()
-            loadstring(game:HttpGet("https://gist.githubusercontent.com/asplqkkm-cloud/898f8282f79e122278c77a66102f441b/raw/3c2ec24dc10601686587f39df9ff64d7349a98c6/gistfile1.txt"))()
-        end)
+        loadMainScript()
     else
         submitBtn.Text = "❌ คีย์ไม่ถูกต้อง!"
         submitBtn.BackgroundColor3 = Color3.fromRGB(240, 100, 100)
