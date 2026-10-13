@@ -1,5 +1,5 @@
 -- ==============================================================================
--- 🌸 [TAKESA HUB] : MOBILE PRO EDITION (UPDATED WITH "coquette hub (brook heaven)")
+-- 🌸 [TAKESA HUB] : MOBILE PRO EDITION (DOUBLE TAP TO COPY INSTRUCTIONS ADDED)
 -- ==============================================================================
 local Plrs, CoreG, RunS, TweenS, Lighting, Camera, UserInputService, TeleportService, HttpService = game:GetService("Players"), game:GetService("CoreGui"), game:GetService("RunService"), game:GetService("TweenService"), game:GetService("Lighting"), workspace.CurrentCamera, game:GetService("UserInputService"), game:GetService("TeleportService"), game:GetService("HttpService")
 local LP = Plrs.LocalPlayer
@@ -132,14 +132,14 @@ local tb1 = mkTab("หน้าแรก", 1, 8, 350)
 local tb2 = mkTab("วาร์ป", 2, 8, 350)
 local tb3 = mkTab("ESP", 3, 8, 250)
 local tb4 = mkTab("ตัวละคร", 4, 8, 2000)
-local tb5 = mkTab("เพลง", 5, 8, 4200)
+local tb5 = mkTab("เพลง", 5, 8, 4600)
 local tb6 = mkTab("ล็อคเป้า", 6, 8, 400)
 local tb7 = mkTab("ช่วยเหลือ", 7, 8, 500)
 local tb8 = mkTab("แมพต่างๆ", 8, 8, 1650)
 
 -- Tab 1 Content (หน้าแรก)
 local wLbl = Instance.new("TextLabel", tb1) 
-wLbl.Size, wLbl.Position, wLbl.BackgroundColor3, wLbl.TextColor3, wLbl.TextSize, wLbl.Font, wLbl.Text = UDim2.new(1, 0, 0, 90), UDim2.new(0, 0, 0, 10), Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE PRO EDITION\n  ✨ อัปเดตเพิ่ม coquette hub (brook heaven) ใน Tab 8 แล้ว!\n  🚀 เลื่อนหน้าจอเพื่อดูเมนูเพิ่มเติมได้เลย!"
+wLbl.Size, wLbl.Position, wLbl.BackgroundColor3, wLbl.TextColor3, wLbl.TextSize, wLbl.Font, wLbl.Text = UDim2.new(1, 0, 0, 90), UDim2.new(0, 0, 0, 10), Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE PRO EDITION\n  💡 ทริค: กดชื่อเพลง 1 ครั้ง (ใส่ ID) | ถ้าหากอยากคัดลอก ให้แตะชื่อเพลง 2 ครั้ง!\n  🚀 เลื่อนหน้าจอเพื่อดูเมนูเพิ่มเติมได้เลย!"
 wLbl.TextXAlignment = Enum.TextXAlignment.Left cnr(wLbl, 10) addSoftShadow(wLbl)
 
 local tiktokBtn = Instance.new("TextButton", tb1)
@@ -689,7 +689,7 @@ end)
 local musicLabel = Instance.new("TextLabel", tb5)
 musicLabel.Size, musicLabel.Position, musicLabel.BackgroundTransparency = UDim2.new(1, 0, 0, 20), UDim2.new(0, 0, 0, 0), true
 musicLabel.TextColor3, musicLabel.TextSize, musicLabel.Font = Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold
-musicLabel.Text = "🎵 รหัสเพลง (พิมพ์เอง หรือเลือกจากรายการด้านล่าง):"
+musicLabel.Text = "🎵 กด 1 ครั้ง = ใส่ ID | ถ้าอยากคัดลอกให้แตะชื่อเพลง 2 ครั้ง"
 musicLabel.TextXAlignment = Enum.TextXAlignment.Left
 
 local musicBox = Instance.new("TextBox", tb5)
@@ -717,6 +717,16 @@ local musicList = {
     {name = "สายเบียว 3 🌸✨", id = "123511627553696"},
     {name = "สายเบียว 4 🌸✨", id = "119322956539829"},
     {name = "สายเบียว 5 🌸✨", id = "76650356472656"},
+    {name = "สายเบียว 6 🌸✨", id = "80991014952323"},
+    {name = "สายเบียว 7 🌸✨", id = "80442979651569"},
+    {name = "สายเบียว 8 🌸✨", id = "80197259053353"},
+    {name = "สายเบียว 9 🌸✨", id = "133900373762715"},
+    {name = "สายเบียว 10 🌸✨", id = "86173461299180"},
+    {name = "สายเบียว 11 🌸✨", id = "94229502650041"},
+    {name = "สายเบียว 12 🌸✨", id = "123244893615420"},
+    {name = "สายเบียว 13 🌸✨", id = "126545930598620"},
+    {name = "สายเบียว 14 🌸✨", id = "87570666848900"},
+    {name = "สายเบียว 15 🌸✨", id = "121379700947776"},
     {name = "เพลงใหม่ 1 🎵", id = "115189039255362"},
     {name = "เพลงใหม่ 3 🎵", id = "74697049223758"},
     {name = "เพลงใหม่ 4 🎵", id = "110919391228823"},
@@ -932,7 +942,34 @@ for i, song in ipairs(musicList) do
     songBtn.TextXAlignment = Enum.TextXAlignment.Left
     cnr(songBtn, 6)
     
-    songBtn.MouseButton1Click:Connect(function() musicBox.Text = song.id end)
+    local lastClick = 0
+    songBtn.MouseButton1Click:Connect(function()
+        local currentTime = tick()
+        if currentTime - lastClick < 0.4 then
+            -- กด 2 ครั้ง (Double Click) -> คัดลอก ID
+            pcall(function()
+                if setclipboard then
+                    setclipboard(song.id)
+                    songBtn.Text = "✅ คัดลอก ID สำเร็จ!"
+                    songBtn.BackgroundColor3 = Color3.fromRGB(80, 200, 120)
+                    songBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    task.wait(1.5)
+                    songBtn.Text = "🎵 " .. song.name
+                    songBtn.BackgroundColor3 = Color3.fromRGB(245, 247, 252)
+                    songBtn.TextColor3 = Color3.fromRGB(60, 80, 120)
+                else
+                    songBtn.Text = "⚠️ Executor ไม่รองรับคัดลอก"
+                    task.wait(1.5)
+                    songBtn.Text = "🎵 " .. song.name
+                end
+            end)
+            lastClick = 0
+        else
+            -- กด 1 ครั้ง -> ใส่ ID ลงช่องกรอกเพลง
+            musicBox.Text = song.id
+            lastClick = currentTime
+        end
+    end)
 end
 
 playMusicBtn.MouseButton1Click:Connect(function()
@@ -1220,4 +1257,4 @@ for i, mapData in ipairs(mapList) do
     end)
 end
 
-print("🌸 TAKESA HUB // MOBILE PRO EDITION FULLY UPDATED WITH ALL MAPS!")
+print("🌸 TAKESA HUB // MOBILE PRO EDITION FULLY UPDATED WITH SONG INSTRUCTIONS!")
