@@ -1,5 +1,5 @@
 -- ==============================================================================
--- 🌸 [TAKESA HUB] : MOBILE PRO EDITION (DOUBLE TAP TO COPY INSTRUCTIONS ADDED)
+-- 🌸 [TAKESA HUB] : MOBILE PRO EDITION (TAB 9: 6 CUSTOM ITEMS INTEGRATED)
 -- ==============================================================================
 local Plrs, CoreG, RunS, TweenS, Lighting, Camera, UserInputService, TeleportService, HttpService = game:GetService("Players"), game:GetService("CoreGui"), game:GetService("RunService"), game:GetService("TweenService"), game:GetService("Lighting"), workspace.CurrentCamera, game:GetService("UserInputService"), game:GetService("TeleportService"), game:GetService("HttpService")
 local LP = Plrs.LocalPlayer
@@ -93,7 +93,7 @@ tBtn.MouseButton1Click:Connect(function()
 end)
 
 local tH = Instance.new("ScrollingFrame", mF)
-tH.Size, tH.Position, tH.BackgroundTransparency, tH.CanvasSize, tH.ScrollBarThickness = UDim2.new(1, -10, 0, 40), UDim2.new(0, 5, 0, 50), true, UDim2.new(0, 600, 0, 0), 0
+tH.Size, tH.Position, tH.BackgroundTransparency, tH.CanvasSize, tH.ScrollBarThickness = UDim2.new(1, -10, 0, 40), UDim2.new(0, 5, 0, 50), true, UDim2.new(0, 750, 0, 0), 0
 
 local cH = Instance.new("Frame", mF) 
 cH.Size, cH.Position, cH.BackgroundTransparency = UDim2.new(1, -16, 1, -100), UDim2.new(0, 8, 0, 95), true
@@ -128,18 +128,19 @@ local function mkTab(name, idx, totalTabs, contentHeight)
     return scr
 end
 
-local tb1 = mkTab("หน้าแรก", 1, 8, 350)
-local tb2 = mkTab("วาร์ป", 2, 8, 350)
-local tb3 = mkTab("ESP", 3, 8, 250)
-local tb4 = mkTab("ตัวละคร", 4, 8, 2000)
-local tb5 = mkTab("เพลง", 5, 8, 4600)
-local tb6 = mkTab("ล็อคเป้า", 6, 8, 400)
-local tb7 = mkTab("ช่วยเหลือ", 7, 8, 500)
-local tb8 = mkTab("แมพต่างๆ", 8, 8, 1650)
+local tb1 = mkTab("หน้าแรก", 1, 9, 350)
+local tb2 = mkTab("วาร์ป", 2, 9, 350)
+local tb3 = mkTab("ESP", 3, 9, 250)
+local tb4 = mkTab("ตัวละคร", 4, 9, 2000)
+local tb5 = mkTab("เพลง", 5, 9, 4600)
+local tb6 = mkTab("ล็อคเป้า", 6, 9, 400)
+local tb7 = mkTab("ช่วยเหลือ", 7, 9, 500)
+local tb8 = mkTab("แมพต่างๆ", 8, 9, 1650)
+local tb9 = mkTab("ไอเทม", 9, 9, 600) -- แท็บรวมไอเทมพิเศษ 6 อย่าง
 
 -- Tab 1 Content (หน้าแรก)
 local wLbl = Instance.new("TextLabel", tb1) 
-wLbl.Size, wLbl.Position, wLbl.BackgroundColor3, wLbl.TextColor3, wLbl.TextSize, wLbl.Font, wLbl.Text = UDim2.new(1, 0, 0, 90), UDim2.new(0, 0, 0, 10), Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE PRO EDITION\n  💡 ทริค: กดชื่อเพลง 1 ครั้ง (ใส่ ID) | ถ้าหากอยากคัดลอก ให้แตะชื่อเพลง 2 ครั้ง!\n  🚀 เลื่อนหน้าจอเพื่อดูเมนูเพิ่มเติมได้เลย!"
+wLbl.Size, wLbl.Position, wLbl.BackgroundColor3, wLbl.TextColor3, wLbl.TextSize, wLbl.Font, wLbl.Text = UDim2.new(1, 0, 0, 90), UDim2.new(0, 0, 0, 10), Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE PRO EDITION\n  ✨ เพิ่มไอเทมพิเศษ 6 ชนิดใน Tab 9 เรียบร้อยแล้ว!\n  🚀 สามารถเลือกกดใช้งานระบบได้ทันที!"
 wLbl.TextXAlignment = Enum.TextXAlignment.Left cnr(wLbl, 10) addSoftShadow(wLbl)
 
 local tiktokBtn = Instance.new("TextButton", tb1)
@@ -308,7 +309,7 @@ RunS.RenderStepped:Connect(function()
     if espAct then for _, p in pairs(Plrs:GetPlayers()) do if p ~= LP then applyESP(p) end end end
 end)
 
--- Tab 4 Content (Character + Anti-Knockback + Drone + Pro Features)
+-- Tab 4 Content (Character + Features)
 local noclip, spdJump, antiV, infZoom, flyAct, boostFPSAct, antiKBAct = false, false, false, false, false, false, false
 local desyncAct, infJumpAct, airWalkAct = false, false, false
 local flySpeed = 50
@@ -946,7 +947,6 @@ for i, song in ipairs(musicList) do
     songBtn.MouseButton1Click:Connect(function()
         local currentTime = tick()
         if currentTime - lastClick < 0.4 then
-            -- กด 2 ครั้ง (Double Click) -> คัดลอก ID
             pcall(function()
                 if setclipboard then
                     setclipboard(song.id)
@@ -965,7 +965,6 @@ for i, song in ipairs(musicList) do
             end)
             lastClick = 0
         else
-            -- กด 1 ครั้ง -> ใส่ ID ลงช่องกรอกเพลง
             musicBox.Text = song.id
             lastClick = currentTime
         end
@@ -998,7 +997,7 @@ stopMusicBtn.MouseButton1Click:Connect(function()
     end)
 end)
 
--- Tab 6 Content (🎯 ระบบล็อกเป้าผู้เล่นอัตโนมัติ)
+-- Tab 6 Content (🎯 ระบบล็อกเป้า)
 local lockTarget = nil
 local targetLockEnabled = false
 
@@ -1069,7 +1068,7 @@ RunS.RenderStepped:Connect(function()
     end
 end)
 
--- Tab 7 Content (🛠️ ระบบช่วยเหลือ - Auto Clicker, Anti-AFK, FPS / Ping Counter)
+-- Tab 7 Content (🛠️ ระบบช่วยเหลือ)
 local statsLabel = Instance.new("TextLabel", tb7)
 statsLabel.Size, statsLabel.Position = UDim2.new(1, 0, 0, 45), UDim2.new(0, 0, 0, 10)
 statsLabel.BackgroundColor3, statsLabel.TextColor3, statsLabel.TextSize, statsLabel.Font = Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 12, Enum.Font.GothamBold
@@ -1150,7 +1149,7 @@ antiAfkBtn.MouseButton1Click:Connect(function()
     antiAfkBtn.Text = "💤 เปิด/ปิด กันถูกเตะออกเกม: " .. (antiAfkActive and "[ เปิดใช้งาน ]" or "[ ปิดอยู่ ]")
 end)
 
--- Tab 8 Content (🗺️ ระบบสคริปต์แมพต่างๆ + ป้ายเตือนค่าย Hub อื่นๆ)
+-- Tab 8 Content (🗺️ ระบบสคริปต์แมพต่างๆ)
 local mapNoteLbl = Instance.new("TextLabel", tb8)
 mapNoteLbl.Size, mapNoteLbl.Position = UDim2.new(1, 0, 0, 36), UDim2.new(0, 0, 0, 5)
 mapNoteLbl.BackgroundColor3, mapNoteLbl.TextColor3, mapNoteLbl.TextSize, mapNoteLbl.Font = Color3.fromRGB(255, 245, 230), Color3.fromRGB(210, 120, 30), 10, Enum.Font.GothamBold
@@ -1162,66 +1161,16 @@ local mapSelectFrame = Instance.new("Frame", tb8)
 mapSelectFrame.Size, mapSelectFrame.Position, mapSelectFrame.BackgroundTransparency = UDim2.new(1, 0, 1, -45), UDim2.new(0, 0, 0, 45), true
 
 local mapList = {
-    {
-        name = "Military Army Tycoon 🪖", 
-        script = function()
-            loadstring(game:HttpGet("https://gist.githubusercontent.com/asplqkkm-cloud/7de1a9a4f30164f0674da99cd7e480f7/raw/d3092620ed810cfc51faf686195a525ae21855a2/gistfile1.txt"))()
-        end
-    },
-    {
-        name = "Rivals 🎯", 
-        script = function()
-            loadstring(game:HttpGet("https://pastebin.com/raw/vWDcERZy"))()
-        end
-    },
-    {
-        name = "Murder Mystery 2 (MM2) 🗡️", 
-        script = function()
-            loadstring(game:HttpGet("https://gist.githubusercontent.com/asplqkkm-cloud/91d9d7c60e170322d46c67b2a33189a8/raw/8c6184e3daf189333e7a11316ffa82c120fe59dd/gistfile1.txt"))()
-        end
-    },
-    {
-        name = "มวยไร้ชื่อ (Mirage) 🥊", 
-        script = function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/J4stJD/Mirage/refs/heads/main/Loader"))()
-        end
-    },
-    {
-        name = "Forsaken 🛡️", 
-        script = function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/LolnotaKid/project/refs/heads/main/AutoBLOCKKKWAHV1"))()
-        end
-    },
-    {
-        name = "Command an Army ⚔️", 
-        script = function()
-            loadstring(game:HttpGet("https://chronix-gate.net/l"))()
-        end
-    },
-    {
-        name = "Baseball ⚾", 
-        script = function()
-            loadstring(game:HttpGet("https://script-vault-production.up.railway.app/raw/cca31b760609d8fc/main.lua"))()
-        end
-    },
-    {
-        name = "Brookhaven 🏡", 
-        script = function()
-            loadstring(game:HttpGet("https://script-vault-production.up.railway.app/raw/cca31b760609d8fc/main.lua"))()
-        end
-    },
-    {
-        name = "เขตความรุนแรง 💥", 
-        script = function()
-            loadstring(game:HttpGet("https://chronix-gate.net/l"))()
-        end
-    },
-    {
-        name = "coquette hub (brook heaven) 🎀", 
-        script = function()
-            loadstring(game:HttpGet("https://coquette-hub.com/r/5753a035c626"))()
-        end
-    }
+    {name = "Military Army Tycoon 🪖", script = function() loadstring(game:HttpGet("https://gist.githubusercontent.com/asplqkkm-cloud/7de1a9a4f30164f0674da99cd7e480f7/raw/d3092620ed810cfc51faf686195a525ae21855a2/gistfile1.txt"))() end},
+    {name = "Rivals 🎯", script = function() loadstring(game:HttpGet("https://pastebin.com/raw/vWDcERZy"))() end},
+    {name = "Murder Mystery 2 (MM2) 🗡️", script = function() loadstring(game:HttpGet("https://gist.githubusercontent.com/asplqkkm-cloud/91d9d7c60e170322d46c67b2a33189a8/raw/8c6184e3daf189333e7a11316ffa82c120fe59dd/gistfile1.txt"))() end},
+    {name = "มวยไร้ชื่อ (Mirage) 🥊", script = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/J4stJD/Mirage/refs/heads/main/Loader"))() end},
+    {name = "Forsaken 🛡️", script = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/LolnotaKid/project/refs/heads/main/AutoBLOCKKKWAHV1"))() end},
+    {name = "Command an Army ⚔️", script = function() loadstring(game:HttpGet("https://chronix-gate.net/l"))() end},
+    {name = "Baseball ⚾", script = function() loadstring(game:HttpGet("https://script-vault-production.up.railway.app/raw/cca31b760609d8fc/main.lua"))() end},
+    {name = "Brookhaven 🏡", script = function() loadstring(game:HttpGet("https://script-vault-production.up.railway.app/raw/cca31b760609d8fc/main.lua"))() end},
+    {name = "เขตความรุนแรง 💥", script = function() loadstring(game:HttpGet("https://chronix-gate.net/l"))() end},
+    {name = "coquette hub (brook heaven) 🎀", script = function() loadstring(game:HttpGet("https://coquette-hub.com/r/5753a035c626"))() end}
 }
 
 mapSelectFrame.Size = UDim2.new(1, 0, 0, #mapList * 52 + 10)
@@ -1238,23 +1187,208 @@ for i, mapData in ipairs(mapList) do
             mapBtn.Text = "⏳ กำลังรันสคริปต์ " .. mapData.name .. "..."
             mapBtn.BackgroundColor3 = Color3.fromRGB(90, 140, 255)
             mapBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-            
             pcall(mapData.script)
-            
             task.wait(1.5)
             mapBtn.Text = "✅ รันสคริปต์สำเร็จ! (" .. mapData.name .. ")"
             mapBtn.BackgroundColor3 = Color3.fromRGB(80, 200, 120)
-            
             task.wait(2)
             mapBtn.Text = "  🗺️ " .. mapData.name
             mapBtn.BackgroundColor3 = Color3.fromRGB(230, 238, 250)
             mapBtn.TextColor3 = Color3.fromRGB(60, 80, 120)
-        else
-            mapBtn.Text = "⚠️ ยังไม่มีสคริปต์ในแมพนี้"
-            task.wait(1.5)
-            mapBtn.Text = "  🗺️ " .. mapData.name
         end
     end)
 end
 
-print("🌸 TAKESA HUB // MOBILE PRO EDITION FULLY UPDATED WITH SONG INSTRUCTIONS!")
+-- ==============================================================================
+-- 🛍️ TAB 9 CONTENT : 6 CUSTOM ITEMS INTEGRATED (6 ไอเทมพิเศษสุดโปร)
+-- ==============================================================================
+local itemInfoLbl = Instance.new("TextLabel", tb9)
+itemInfoLbl.Size, itemInfoLbl.Position = UDim2.new(1, 0, 0, 36), UDim2.new(0, 0, 0, 5)
+itemInfoLbl.BackgroundColor3, itemInfoLbl.TextColor3, itemInfoLbl.TextSize, itemInfoLbl.Font = Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold
+itemInfoLbl.Text = "  📦 เลือกใช้งาน 6 ไอเทมพิเศษ (แตะเพื่อใช้งานทันที)"
+itemInfoLbl.TextXAlignment = Enum.TextXAlignment.Left
+cnr(itemInfoLbl, 8) addSoftShadow(itemInfoLbl)
+
+local function createItemButton(posy, text, callback)
+    local btn = Instance.new("TextButton", tb9)
+    btn.Size, btn.Position = UDim2.new(1, 0, 0, 42), UDim2.new(0, 0, 0, posy)
+    btn.BackgroundColor3, btn.TextColor3, btn.TextSize, btn.Font = Color3.fromRGB(230, 238, 250), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold
+    btn.Text = "  " .. text
+    btn.TextXAlignment = Enum.TextXAlignment.Left
+    cnr(btn, 8) addSoftShadow(btn)
+    btn.MouseButton1Click:Connect(function() callback(btn) end)
+    return btn
+end
+
+-- 1. ⚡ ยาเร่งสปีดขั้นสุด (Ultimate Speed Potion)
+local speedPotionActive = false
+createItemButton(48, "⚡ ยาเร่งสปีดขั้นสุด (WalkSpeed 150 - 10 วินาที)", function(btn)
+    if speedPotionActive then return end
+    speedPotionActive = true
+    local char = LP.Character
+    local hum = char and char:FindFirstChildOfClass("Humanoid")
+    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+    
+    if hum and hrp then
+        local oldSpeed = hum.WalkSpeed
+        hum.WalkSpeed = 150
+        
+        local pe = Instance.new("ParticleEmitter", hrp)
+        pe.Texture = "rbxassetid://258128463"
+        pe.Color = ColorSequence.new(Color3.fromRGB(255, 200, 50))
+        pe.Size = NumberSequence.new(1.5)
+        pe.Rate = 30
+        pe.Speed = NumberRange.new(2, 5)
+        
+        task.spawn(function()
+            for i = 10, 1, -1 do
+                btn.Text = "  ⏳ ยาเร่งสปีดทำงานอยู่... (" .. i .. "s)"
+                btn.BackgroundColor3 = Color3.fromRGB(80, 200, 120)
+                btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+                task.wait(1)
+            end
+            hum.WalkSpeed = oldSpeed
+            pe:Destroy()
+            speedPotionActive = false
+            btn.Text = "  ⚡ ยาเร่งสปีดขั้นสุด (WalkSpeed 150 - 10 วินาที)"
+            btn.BackgroundColor3 = Color3.fromRGB(230, 238, 250)
+            btn.TextColor3 = Color3.fromRGB(60, 80, 120)
+        end)
+    end
+end)
+
+-- 2. 🦘 รองเท้ากระโดดสูง (Super Jump Boots)
+local jumpBootsActive = false
+createItemButton(96, "🦘 รองเท้ากระโดดสูง (JumpPower 200): [ ปิดอยู่ ]", function(btn)
+    jumpBootsActive = not jumpBootsActive
+    local char = LP.Character
+    local hum = char and char:FindFirstChildOfClass("Humanoid")
+    
+    if hum then
+        hum.UseJumpPower = true
+        if jumpBootsActive then
+            hum.JumpPower = 200
+            btn.BackgroundColor3 = Color3.fromRGB(80, 200, 120)
+            btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+            btn.Text = "  🦘 รองเท้ากระโดดสูง (JumpPower 200): [ เปิดใช้งาน ]"
+        else
+            hum.JumpPower = 50
+            btn.BackgroundColor3 = Color3.fromRGB(230, 238, 250)
+            btn.TextColor3 = Color3.fromRGB(60, 80, 120)
+            btn.Text = "  🦘 รองเท้ากระโดดสูง (JumpPower 200): [ ปิดอยู่ ]"
+        end
+    end
+end)
+
+-- 3. 🛡️ เกราะบาเรียพลังงาน (Energy Shield Barrier)
+local shieldActive = false
+local shieldPart = nil
+createItemButton(144, "🛡️ เกราะบาเรียพลังงาน (Energy Shield): [ ปิดอยู่ ]", function(btn)
+    shieldActive = not shieldActive
+    local char = LP.Character
+    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+    
+    btn.BackgroundColor3 = shieldActive and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
+    btn.TextColor3 = shieldActive and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
+    btn.Text = "  🛡️ เกราะบาเรียพลังงาน: " .. (shieldActive and "[ เปิดใช้งาน ]" or "[ ปิดอยู่ ]")
+    
+    if shieldActive and hrp then
+        shieldPart = Instance.new("Part", char)
+        shieldPart.Name = "EnergyShieldPart"
+        shieldPart.Shape = Enum.PartType.Ball
+        shieldPart.Size = Vector3.new(10, 10, 10)
+        shieldPart.Material = Enum.Material.ForceField
+        shieldPart.Color = Color3.fromRGB(90, 180, 255)
+        shieldPart.Transparency = 0.3
+        shieldPart.CanCollide = false
+        
+        local weld = Instance.new("Weld", shieldPart)
+        weld.Part0 = hrp
+        weld.Part1 = shieldPart
+        weld.C0 = CFrame.new(0, 0, 0)
+    else
+        if shieldPart then shieldPart:Destroy() shieldPart = nil end
+    end
+end)
+
+-- 4. 🌀 หินวาร์ปกลับจุดเกิด (Spawn Teleport Stone)
+createItemButton(192, "🌀 หินวาร์ปกลับจุดเกิด (Spawn Teleport)", function(btn)
+    local char = LP.Character
+    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+    local spawnLocation = workspace:FindFirstChildOfClass("SpawnLocation")
+    
+    if hrp then
+        if spawnLocation then
+            hrp.CFrame = spawnLocation.CFrame + Vector3.new(0, 4, 0)
+        else
+            hrp.CFrame = CFrame.new(0, 50, 0)
+        end
+        btn.Text = "  ✅ วาร์ปกลับจุดเกิดสำเร็จ!"
+        btn.BackgroundColor3 = Color3.fromRGB(80, 200, 120)
+        btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+        task.wait(1.5)
+        btn.Text = "  🌀 หินวาร์ปกลับจุดเกิด (Spawn Teleport)"
+        btn.BackgroundColor3 = Color3.fromRGB(230, 238, 250)
+        btn.TextColor3 = Color3.fromRGB(60, 80, 120)
+    end
+end)
+
+-- 5. 👻 ผ้าคลุมล่องหน (Invisible Cloak)
+local invisibleActive = false
+createItemButton(240, "👻 ผ้าคลุมล่องหน (Invisible Cloak): [ ปิดอยู่ ]", function(btn)
+    invisibleActive = not invisibleActive
+    local char = LP.Character
+    btn.BackgroundColor3 = invisibleActive and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
+    btn.TextColor3 = invisibleActive and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
+    btn.Text = "  👻 ผ้าคลุมล่องหน: " .. (invisibleActive and "[ ล่องหนอยู่ ]" or "[ ปิดอยู่ ]")
+    
+    if char then
+        for _, v in pairs(char:GetDescendants()) do
+            if v:IsA("BasePart") or v:IsA("Decal") then
+                if v.Name ~= "HumanoidRootPart" then
+                    v.Transparency = invisibleActive and 1 or 0
+                end
+            end
+        end
+    end
+end)
+
+-- 6. 🕊️ ปีกบินติดหลัง (Fly Wings Attachment)
+local wingsActive = false
+local leftWing, rightWing = nil, nil
+createItemButton(288, "🕊️ ปีกบินติดหลัง (Fly Wings Attachment): [ ปิดอยู่ ]", function(btn)
+    wingsActive = not wingsActive
+    local char = LP.Character
+    local torso = char and (char:FindFirstChild("UpperTorso") or char:FindFirstChild("Torso"))
+    
+    btn.BackgroundColor3 = wingsActive and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
+    btn.TextColor3 = wingsActive and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
+    btn.Text = "  🕊️ ปีกบินติดหลัง: " .. (wingsActive and "[ เปิดใช้งาน ]" or "[ ปิดอยู่ ]")
+    
+    if wingsActive and torso then
+        leftWing = Instance.new("Part", char)
+        leftWing.Size = Vector3.new(0.2, 3, 5)
+        leftWing.Color = Color3.fromRGB(255, 255, 255)
+        leftWing.Material = Enum.Material.Neon
+        leftWing.CanCollide = false
+        local w1 = Instance.new("Weld", leftWing)
+        w1.Part0 = torso
+        w1.Part1 = leftWing
+        w1.C0 = CFrame.new(-2.5, 1, -0.5) * CFrame.Angles(0, math.rad(-30), math.rad(20))
+        
+        rightWing = Instance.new("Part", char)
+        rightWing.Size = Vector3.new(0.2, 3, 5)
+        rightWing.Color = Color3.fromRGB(255, 255, 255)
+        rightWing.Material = Enum.Material.Neon
+        rightWing.CanCollide = false
+        local w2 = Instance.new("Weld", rightWing)
+        w2.Part0 = torso
+        w2.Part1 = rightWing
+        w2.C0 = CFrame.new(2.5, 1, -0.5) * CFrame.Angles(0, math.rad(30), math.rad(-20))
+    else
+        if leftWing then leftWing:Destroy() leftWing = nil end
+        if rightWing then rightWing:Destroy() rightWing = nil end
+    end
+end)
+
+print("🌸 TAKESA HUB // MOBILE PRO EDITION FULLY UPDATED WITH 6 CUSTOM ITEMS!")
