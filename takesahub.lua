@@ -1,5 +1,5 @@
 -- ==============================================================================
--- 🌸 [TAKESA HUB] : MOBILE PRO EDITION (TAB 9: 6 CUSTOM ITEMS INTEGRATED)
+-- 🌸 [TAKESA HUB] : MOBILE PRO EDITION (FIXED NOCLIP & CUSTOM ITEMS)
 -- ==============================================================================
 local Plrs, CoreG, RunS, TweenS, Lighting, Camera, UserInputService, TeleportService, HttpService = game:GetService("Players"), game:GetService("CoreGui"), game:GetService("RunService"), game:GetService("TweenService"), game:GetService("Lighting"), workspace.CurrentCamera, game:GetService("UserInputService"), game:GetService("TeleportService"), game:GetService("HttpService")
 local LP = Plrs.LocalPlayer
@@ -136,11 +136,11 @@ local tb5 = mkTab("เพลง", 5, 9, 4600)
 local tb6 = mkTab("ล็อคเป้า", 6, 9, 400)
 local tb7 = mkTab("ช่วยเหลือ", 7, 9, 500)
 local tb8 = mkTab("แมพต่างๆ", 8, 9, 1650)
-local tb9 = mkTab("ไอเทม", 9, 9, 600) -- แท็บรวมไอเทมพิเศษ 6 อย่าง
+local tb9 = mkTab("ไอเทม", 9, 9, 300)
 
 -- Tab 1 Content (หน้าแรก)
 local wLbl = Instance.new("TextLabel", tb1) 
-wLbl.Size, wLbl.Position, wLbl.BackgroundColor3, wLbl.TextColor3, wLbl.TextSize, wLbl.Font, wLbl.Text = UDim2.new(1, 0, 0, 90), UDim2.new(0, 0, 0, 10), Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE PRO EDITION\n  ✨ เพิ่มไอเทมพิเศษ 6 ชนิดใน Tab 9 เรียบร้อยแล้ว!\n  🚀 สามารถเลือกกดใช้งานระบบได้ทันที!"
+wLbl.Size, wLbl.Position, wLbl.BackgroundColor3, wLbl.TextColor3, wLbl.TextSize, wLbl.Font, wLbl.Text = UDim2.new(1, 0, 0, 90), UDim2.new(0, 0, 0, 10), Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold, "  🌸 TAKESA HUB // MOBILE PRO EDITION\n  🔧 แก้ไขระบบทะลุกำแพง (Noclip) ให้เสถียรแล้ว!\n  🚀 ทดลองเปิดใช้งานใน Tab ตัวละคร ได้เลยครับ"
 wLbl.TextXAlignment = Enum.TextXAlignment.Left cnr(wLbl, 10) addSoftShadow(wLbl)
 
 local tiktokBtn = Instance.new("TextButton", tb1)
@@ -342,10 +342,13 @@ addT(52, "🧱 เปิด/ปิด ทะลุกำแพง (Noclip): [ �
     b.Text = "🧱 เปิด/ปิด ทะลุกำแพง (Noclip): " .. (noclip and "[ เปิด ]" or "[ ปิดอยู่ ]")
 end)
 
+-- 🔧 [FIXED] แก้ไขระบบ Noclip ให้ปิด CanCollide ของทุก Part อย่างสมบูรณ์
 RunS.Stepped:Connect(function()
     if noclip and LP.Character then
         for _, part in pairs(LP.Character:GetDescendants()) do
-            if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then part.CanCollide = false end
+            if part:IsA("BasePart") then 
+                part.CanCollide = false 
+            end
         end
     end
 end)
@@ -1200,12 +1203,12 @@ for i, mapData in ipairs(mapList) do
 end
 
 -- ==============================================================================
--- 🛍️ TAB 9 CONTENT : 6 CUSTOM ITEMS INTEGRATED (6 ไอเทมพิเศษสุดโปร)
+-- 🛍️ TAB 9 CONTENT : CUSTOM ITEMS
 -- ==============================================================================
 local itemInfoLbl = Instance.new("TextLabel", tb9)
 itemInfoLbl.Size, itemInfoLbl.Position = UDim2.new(1, 0, 0, 36), UDim2.new(0, 0, 0, 5)
 itemInfoLbl.BackgroundColor3, itemInfoLbl.TextColor3, itemInfoLbl.TextSize, itemInfoLbl.Font = Color3.fromRGB(245, 248, 255), Color3.fromRGB(60, 80, 120), 11, Enum.Font.GothamBold
-itemInfoLbl.Text = "  📦 เลือกใช้งาน 6 ไอเทมพิเศษ (แตะเพื่อใช้งานทันที)"
+itemInfoLbl.Text = "  📦 เลือกใช้งานไอเทมพิเศษ (แตะเพื่อใช้งานทันที)"
 itemInfoLbl.TextXAlignment = Enum.TextXAlignment.Left
 cnr(itemInfoLbl, 8) addSoftShadow(itemInfoLbl)
 
@@ -1280,62 +1283,9 @@ createItemButton(96, "🦘 รองเท้ากระโดดสูง (Jum
     end
 end)
 
--- 3. 🛡️ เกราะบาเรียพลังงาน (Energy Shield Barrier)
-local shieldActive = false
-local shieldPart = nil
-createItemButton(144, "🛡️ เกราะบาเรียพลังงาน (Energy Shield): [ ปิดอยู่ ]", function(btn)
-    shieldActive = not shieldActive
-    local char = LP.Character
-    local hrp = char and char:FindFirstChild("HumanoidRootPart")
-    
-    btn.BackgroundColor3 = shieldActive and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
-    btn.TextColor3 = shieldActive and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
-    btn.Text = "  🛡️ เกราะบาเรียพลังงาน: " .. (shieldActive and "[ เปิดใช้งาน ]" or "[ ปิดอยู่ ]")
-    
-    if shieldActive and hrp then
-        shieldPart = Instance.new("Part", char)
-        shieldPart.Name = "EnergyShieldPart"
-        shieldPart.Shape = Enum.PartType.Ball
-        shieldPart.Size = Vector3.new(10, 10, 10)
-        shieldPart.Material = Enum.Material.ForceField
-        shieldPart.Color = Color3.fromRGB(90, 180, 255)
-        shieldPart.Transparency = 0.3
-        shieldPart.CanCollide = false
-        
-        local weld = Instance.new("Weld", shieldPart)
-        weld.Part0 = hrp
-        weld.Part1 = shieldPart
-        weld.C0 = CFrame.new(0, 0, 0)
-    else
-        if shieldPart then shieldPart:Destroy() shieldPart = nil end
-    end
-end)
-
--- 4. 🌀 หินวาร์ปกลับจุดเกิด (Spawn Teleport Stone)
-createItemButton(192, "🌀 หินวาร์ปกลับจุดเกิด (Spawn Teleport)", function(btn)
-    local char = LP.Character
-    local hrp = char and char:FindFirstChild("HumanoidRootPart")
-    local spawnLocation = workspace:FindFirstChildOfClass("SpawnLocation")
-    
-    if hrp then
-        if spawnLocation then
-            hrp.CFrame = spawnLocation.CFrame + Vector3.new(0, 4, 0)
-        else
-            hrp.CFrame = CFrame.new(0, 50, 0)
-        end
-        btn.Text = "  ✅ วาร์ปกลับจุดเกิดสำเร็จ!"
-        btn.BackgroundColor3 = Color3.fromRGB(80, 200, 120)
-        btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-        task.wait(1.5)
-        btn.Text = "  🌀 หินวาร์ปกลับจุดเกิด (Spawn Teleport)"
-        btn.BackgroundColor3 = Color3.fromRGB(230, 238, 250)
-        btn.TextColor3 = Color3.fromRGB(60, 80, 120)
-    end
-end)
-
--- 5. 👻 ผ้าคลุมล่องหน (Invisible Cloak)
+-- 3. 👻 ผ้าคลุมล่องหน (Invisible Cloak)
 local invisibleActive = false
-createItemButton(240, "👻 ผ้าคลุมล่องหน (Invisible Cloak): [ ปิดอยู่ ]", function(btn)
+createItemButton(144, "👻 ผ้าคลุมล่องหน (Invisible Cloak): [ ปิดอยู่ ]", function(btn)
     invisibleActive = not invisibleActive
     local char = LP.Character
     btn.BackgroundColor3 = invisibleActive and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
@@ -1353,42 +1303,4 @@ createItemButton(240, "👻 ผ้าคลุมล่องหน (Invisible C
     end
 end)
 
--- 6. 🕊️ ปีกบินติดหลัง (Fly Wings Attachment)
-local wingsActive = false
-local leftWing, rightWing = nil, nil
-createItemButton(288, "🕊️ ปีกบินติดหลัง (Fly Wings Attachment): [ ปิดอยู่ ]", function(btn)
-    wingsActive = not wingsActive
-    local char = LP.Character
-    local torso = char and (char:FindFirstChild("UpperTorso") or char:FindFirstChild("Torso"))
-    
-    btn.BackgroundColor3 = wingsActive and Color3.fromRGB(80, 200, 120) or Color3.fromRGB(230, 238, 250)
-    btn.TextColor3 = wingsActive and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(60, 80, 120)
-    btn.Text = "  🕊️ ปีกบินติดหลัง: " .. (wingsActive and "[ เปิดใช้งาน ]" or "[ ปิดอยู่ ]")
-    
-    if wingsActive and torso then
-        leftWing = Instance.new("Part", char)
-        leftWing.Size = Vector3.new(0.2, 3, 5)
-        leftWing.Color = Color3.fromRGB(255, 255, 255)
-        leftWing.Material = Enum.Material.Neon
-        leftWing.CanCollide = false
-        local w1 = Instance.new("Weld", leftWing)
-        w1.Part0 = torso
-        w1.Part1 = leftWing
-        w1.C0 = CFrame.new(-2.5, 1, -0.5) * CFrame.Angles(0, math.rad(-30), math.rad(20))
-        
-        rightWing = Instance.new("Part", char)
-        rightWing.Size = Vector3.new(0.2, 3, 5)
-        rightWing.Color = Color3.fromRGB(255, 255, 255)
-        rightWing.Material = Enum.Material.Neon
-        rightWing.CanCollide = false
-        local w2 = Instance.new("Weld", rightWing)
-        w2.Part0 = torso
-        w2.Part1 = rightWing
-        w2.C0 = CFrame.new(2.5, 1, -0.5) * CFrame.Angles(0, math.rad(30), math.rad(-20))
-    else
-        if leftWing then leftWing:Destroy() leftWing = nil end
-        if rightWing then rightWing:Destroy() rightWing = nil end
-    end
-end)
-
-print("🌸 TAKESA HUB // MOBILE PRO EDITION FULLY UPDATED WITH 6 CUSTOM ITEMS!")
+print("🌸 TAKESA HUB // NOCLIP FIXED!")
